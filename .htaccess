@@ -20,6 +20,9 @@ RewriteRule ^(.*)$ $1.php
 RewriteRule    ^login/?$    lib/auth/login.php    [NC,L]   
 RewriteRule    ^register/?$    lib/auth/register.php    [NC,L] 
 
+RewriteRule    ^admin/?$    admin/dashboard.php    [NC,L] 
+RewriteRule    ^admin/login/?$    admin/login_admin.php    [NC,L] 
+
 </IfModule>
 
 <files config.php>
@@ -32,5 +35,3 @@ php_value memory_limit 512M
 order allow,deny
 allow from all
 </Files>
-deny from 139.162.44.219
-deny from 139.162.44.219

@@ -3,8 +3,9 @@
 //* Mulai dibuat : 4/11/20 07:20 PM
 //* Selesai : -
 //************************************************
-// /error_reporting(0);
+//error_reporting(0);
 
+//Konfigurasi database
 $config['db'] = array(
 	'host' => 'localhost',
 	'name' => 'hotel',
@@ -17,10 +18,14 @@ if(!$connect) {
 	die("Koneksi Gagal : ".mysqli_connect_error());
 	}
 
+//Setting timezone dan waktu
 date_default_timezone_set('Asia/Jakarta');
 $date = date("Y-m-d");
 $time = date("H:i:s");
-$abc ="aa";
-//include '../lib/function.php';
+
+//Include fungsi
 include("lib/function.php");
+
+//Ambil informasi web dari fungsi
+$web_info = get_webSettings();
 ?>

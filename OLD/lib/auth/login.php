@@ -1,15 +1,14 @@
 <?php
+$page = "Login";
 require '../../view/auth/header_auth.php';
 ?>
 <div class="login-box">
 	<div class="login-logo">
-		<a href="../../index2.html"><b>Admin</b>LTE</a>
+		<p>Login</p>
 	</div>
 	<!-- /.login-logo -->
 	<div class="card">
 		<div class="card-body login-card-body">
-			<p class="login-box-msg">Sign in to start your session</p>
-
 			<form action="../../index3.html" method="post">
 				<div class="input-group mb-3">
 					<input type="email" class="form-control" placeholder="Email">
@@ -40,7 +39,7 @@ require '../../view/auth/header_auth.php';
 					<a href="forgot-password.html">Lupa Password?</a>
 				</p>
 				<p class="mb-0">
-					Belum punya akun? <a href="">Klik Disini</a>
+					Belum punya akun? <a href="<?=base_url()?>register/">Klik Disini</a>
 				</p>
 			</div>
 			<!-- /.social-auth-links -->
