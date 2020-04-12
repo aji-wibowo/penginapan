@@ -1,4 +1,5 @@
 <?php
+//Nama page/halaman
 $page = "Login";
 
 //Start session
@@ -11,29 +12,37 @@ require 'layout/header_auth.php';
 if (isset($_SESSION['admin'])) {
 	header("Location: ".base_url()."admin/");
 } else {
+	//Jika tombol login ditekan
 	if (isset($_POST['login'])) {
+		//Tangkap dan filter data post dari from login
 		$email = $connect->real_escape_string(trim(filter($_POST['email'])));
 		$password = $connect->real_escape_string(trim(filter($_POST['password'])));
 
-		$check_user = $connect->query("SELECT * FROM admin WHERE email = '$email'");
-		$check_user_rows = mysqli_num_rows($check_user);
-		$data_admin = mysqli_fetch_assoc($check_user);
+		//Cek apakah email ada?
+		$check_admin = $connect->query("SELECT * FROM admin WHERE email = '$email'");
+		$check_admin_rows = mysqli_num_rows($check_admin);
+		$data_admin = mysqli_fetch_assoc($check_admin);
 
+		//Cocokan password, menggunkan password verifiy php
 		$verif_pass = password_verify($password, $data_admin['password']);
 
+		//Jika from email, dan password kosong maka proses login gagal
 		if (!$email || !$password) {
 			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Mohon isi semua form.');
-		}else if ($check_user_rows == 0) {
-			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Akun tidak ditemukan.');
-		}else{
-			if ($check_user_rows == 1) {
-				if ($verif_pass == true) {
-					$_SESSION['admin'] = $data_admin;
-					exit(header("Location: ".base_url()."admin/"));
-				}else{
-					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Password salah.');
-				}
+		}
+		//Jika email admin ditemukan
+		else if ($check_admin_rows == 1) {
+			//Jika hasil dari $verif_pass true/benar maka dibuat session admin, dan arahkan ke dashboard
+			if ($verif_pass == true) {
+				$_SESSION['admin'] = $data_admin;
+				exit(header("Location: ".base_url()."admin/"));
+			}else{
+				//Jika easil dari $verif_pass false/salah maka proses login gagal
+				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Password salah.');
 			}
+		}else{
+			//Jika email admin tidak ditemukan
+			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Akun tidak ditemukan.');
 		}
 	}
 }
@@ -80,15 +89,6 @@ if (isset($_SESSION['admin'])) {
 					<!-- /.col -->
 				</div>
 			</form>
-
-			<div class="social-auth-links text-center mb-3">
-				<p class="mb-1">
-					<a href="forgot-password.html">Lupa Password?</a>
-				</p>
-				<p class="mb-0">
-					Belum punya akun? <a href="<?=base_url()?>register/">Klik Disini</a>
-				</p>
-			</div>
 			<!-- /.social-auth-links -->
 		</div>
 		<!-- /.login-card-body -->
