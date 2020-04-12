@@ -20,8 +20,9 @@ RewriteRule ^(.*)$ $1.php
 RewriteRule    ^login/?$    lib/auth/login.php    [NC,L]   
 RewriteRule    ^register/?$    lib/auth/register.php    [NC,L] 
 
-RewriteRule    ^admin/?$    admin/dashboard.php    [NC,L] 
+RewriteRule    ^admin/?$    admin/index.php    [NC,L] 
 RewriteRule    ^admin/login/?$    admin/login_admin.php    [NC,L] 
+RewriteRule    ^admin/logout/?$    admin/logout.php    [NC,L] 
 
 </IfModule>
 
