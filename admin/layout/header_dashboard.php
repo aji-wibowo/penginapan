@@ -1,6 +1,5 @@
 <?php
-require '../config.php';
-require 'lib/session_admin.php';
+// require 'lib/session_admin.php';
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +20,9 @@ require 'lib/session_admin.php';
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 	<!-- JQVMap -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/jqvmap/jqvmap.min.css">
+	<!-- DataTables -->
+	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/adminlte.min.css">
 	<!-- overlayScrollbars -->
@@ -93,7 +95,7 @@ require 'lib/session_admin.php';
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="<?=base_url()?>admin/manage-rooms" class="nav-link">
 								<i class="nav-icon fas fa-bed"></i>
 								<p>Kelola Kamar</p>
 							</a>
