@@ -16,10 +16,11 @@ if (isset($_POST['add_data'])) {
 	if (!$room_name || !$room_type || !$room_address|| !$room_price) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}else{
-		if ($connect->query("INSERT INTO kamar VALUES ('','$room_name','$room_type','$room_address','$room_price','$kd_lokasi')") == true) {
+		if ($connect->query("INSERT INTO kamar (nama_kamar, tipe_kamar, alamat_kamar, harga_kamar, kd_lokasi) VALUES ('$room_name','$room_type','$room_address','$room_price','$kd_lokasi')") == true) {
 			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil ditambahkan.');
 		}else{
 			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
+			echo mysqli_error($connect);
 		}
 	}
 }
