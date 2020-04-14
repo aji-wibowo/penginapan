@@ -51,6 +51,15 @@ if (isset($_SESSION['admin'])) {
 	<div class="login-logo">
 		<p>Login</p>
 	</div>
+	<p>
+		Email ganti : admin@admin.com
+	</p>
+	<p>
+		Password nang db : $2y$10$GlaJy1BscESy2Ezj9F72KOjaRyNfYkS4VLLFFfb4MR7Gm4bsL73wm
+	</p>
+	<p>
+		Password Login : admin
+	</p>
 	<?php
 	if (isset($_SESSION['notification']['alert'])) {
 		?>
