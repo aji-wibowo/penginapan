@@ -54,6 +54,11 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url()?>assets/js/demo.js"></script>
 <script>
+  // Alert auto hidden
+  $(".alert").delay(2000).slideUp(500, function() {
+    $(this).alert('close');
+  });
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true,

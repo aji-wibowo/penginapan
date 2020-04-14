@@ -75,7 +75,7 @@ if (isset($_SESSION['user'])) {
 			$password_hash = password_hash($password1, PASSWORD_DEFAULT);
 
 			//Jika sukses memasukan data kedalam database, maka proses daftar berhasi;
-			if ($conn->query("INSERT INTO pembelian_sosmed VALUES ('','$nik','$full_name','$address','$office_origin','$phone_number','$username','$email','$password_hash')") == true) {
+			if ($conn->query("INSERT INTO tamu VALUES ('','$nik','$full_name','$address','$office_origin','$phone_number','$username','$email','$password_hash')") == true) {
 				$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Akun anda berhasil didaftarkan, silakan masuk dihalaman login.');
 			}
 
