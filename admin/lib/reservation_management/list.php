@@ -48,7 +48,7 @@ require '../../layout/header_dashboard.php';
 				<div class="col-12">
 					<div class="card">
 						<div class="card-header">
-							<h3 class="card-title"><?=$page?> di lokasi anda</h3>
+							<h3 class="card-title"><?=$page?></h3>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
@@ -56,78 +56,80 @@ require '../../layout/header_dashboard.php';
 								<thead>
 									<tr>
 										<th>No.</th>
-										<th>Nama Kamar</th>
-										<th>Tipe Kamar</th>
-										<th>Harga Kamar</th>
-										<th>Kode Lokasi</th>
+										<th>Kode Reservasi</th>
+										<th>Tanggal Check In</th>
+										<th>Tanggal Check Out</th>
+										<th>Total Bayar</th>
 										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
 									$no = 1;
-									$check_rooms = $connect->query("SELECT * FROM kamar a JOIN lokasi b ON a.kd_lokasi=b.kd_lokasi JOIN admin c ON c.kd_lokasi=b.kd_lokasi");
-									while ($data_rooms = $check_rooms->fetch_assoc()) {
+									$check_reservation = $connect->query("SELECT * FROM reservasi a JOIN tamu b ON a.kd_tamu=b.kd_tamu JOIN kamar c ON c.kd_kamar=a.kd_kamar");
+									while ($data_reservations = $check_reservation->fetch_assoc()) {
 										?>  
 										<tr>
 											<td><?=$no?></td>
-											<td><?=$data_rooms['nama_kamar']?></td>
-											<td><?=$data_rooms['tipe_kamar']?></td>
-											<td><?=$data_rooms['harga_kamar']?></td>
-											<td><?=$data_rooms['kd_lokasi']." / ".$data_rooms['kota']?></td>
+											<td><?=$data_reservations['kd_reservasi']?></td>
+											<td><?=$data_reservations['cekin']?></td>
+											<td><?=$data_reservations['cekout']?></td>
+											<td>Rp.<?=$data_reservations['total_bayar']?></td>
 											<td>
-												<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-edit-data<?=$no?>"><i class="fas fa-pen"></i></button>
-												<div class="modal fade" id="modal-edit-data<?=$no?>">
+												<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-info-data<?=$no?>"><i class="fas fa-info-circle"></i></button>
+												<div class="modal fade" id="modal-info-data<?=$no?>">
 													<div class="modal-dialog">
 														<div class="modal-content">
 															<div class="modal-header">
-																<h4 class="modal-title">Ubah Data Kamar #<?=$no?></h4>
+																<h4 class="modal-title">Detail Info #<?=$data_reservations['kd_reservasi']?></h4>
 																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																	<span aria-hidden="true">&times;</span>
 																</button>
 															</div>
 															<div class="modal-body">
-																<form method="POST">
-																	<input type="text" name="kd_kamar" value="<?=$data_rooms['kd_kamar']?>" hidden>
-																	<p>*<small>Pada <i>harga kamar</i> input nomor saja tanpa tanda baca.</small></p>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times btn-xs"></i> Batal</button>
-																	<button type="submit" name="edit_data" class="btn btn-success"><i class="fas fa-paper-plane btn-xs"></i> Simpan</button>
-																</form>
+																<table class="table table-bordered table-striped">
+																	<tr>
+																		<td>Kode Reservasi</td>
+																		<td><?=$data_reservations['kd_reservasi']?></td>
+																	</tr>
+																	<tr>
+																		<td>NIK / Nama Tamu</td>
+																		<td><?=$data_reservations['nik']?>/<?=$data_reservations['nama_t']?></td>
+																	</tr>
+																	<tr>
+																		<td>No Handphone Tamu</td>
+																		<td><?=$data_reservations['no_tlp']?></td>
+																	</tr>
+																	<tr>
+																		<td>Nama Kamar</td>
+																		<td><?=$data_reservations['nama_kamar']?></td>
+																	</tr>
+																	<tr>
+																		<td>Tipe Kamar</td>
+																		<td><?=$data_reservations['tipe_kamar']?></td>
+																	</tr>
+																	<tr>
+																		<td>Alamat Kamar</td>
+																		<td><?=$data_reservations['alamat_kamar']?></td>
+																	</tr>
+																	<tr>
+																		<td>Tanggal Check-In</td>
+																		<td><?=$data_reservations['cekin']?></td>
+																	</tr>
+																	<tr>
+																		<td>Tanggal Check-Out</td>
+																		<td><?=$data_reservations['cekout']?></td>
+																	</tr>
+																</table>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-success" data-dismiss="modal"><i class="fas fa-check btn-xs"></i> Ok</button>
 															</div>
 														</div>
 														<!-- /.modal-content -->
 													</div>
 													<!-- /.modal-dialog -->
 												</div>
-												<!-- /.modal -->
-												<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-delete-data<?=$no?>"><i class="fas fa-trash"></i></button>
-												<div class="modal fade" id="modal-delete-data<?=$no?>">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h4 class="modal-title">Hapus Data Kamar #<?=$no?></h4>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<form method="POST">
-																	<p>Apakah anda yakin akan menghapus data kamar no.<?=$no?>?</p>
-																	<input type="text" name="kd_kamar" value="<?=$data_rooms['kd_kamar']?>" hidden>
-																</div>
-																<div class="modal-footer">
-																	<button type="submit" name="delete_data" class="btn btn-danger"><i class="fas fa-paper-plane btn-xs"></i> Yakin, Hapus</button>
-																	<button type="button" class="btn btn-success" data-dismiss="modal"><i class="fas fa-times btn-xs"></i> Batal</button>
-																</form>
-															</div>
-														</div>
-														<!-- /.modal-content -->
-													</div>
-													<!-- /.modal-dialog -->
-												</div>
-												<!-- /.modal -->
 											</td>
 										</tr>
 										<?php 
@@ -137,10 +139,10 @@ require '../../layout/header_dashboard.php';
 								<tfoot>
 									<tr>
 										<th>No.</th>
-										<th>Nama Kamar</th>
-										<th>Tipe Kamar</th>
-										<th>Harga Kamar</th>
-										<th>Kode Lokasi</th>
+										<th>Kode Reservasi</th>
+										<th>Tanggal Check In</th>
+										<th>Tanggal Check Out</th>
+										<th>Total Bayar</th>
 										<th>Aksi</th>
 									</tr>
 								</tfoot>
