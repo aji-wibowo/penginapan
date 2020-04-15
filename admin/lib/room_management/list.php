@@ -9,32 +9,33 @@ require '../../layout/header_dashboard.php';
 if (isset($_POST['add_data'])) {
 	$room_name = $connect->real_escape_string(filter($_POST['room_name']));
 	$room_type = $connect->real_escape_string(filter($_POST['room_type']));
+	$room_description = $connect->real_escape_string(filter($_POST['room_description']));
 	$room_address = $connect->real_escape_string(filter($_POST['room_address']));
 	$room_price = $connect->real_escape_string(filter($_POST['room_price']));
 	$kd_lokasi = $_SESSION['admin']['kd_lokasi'];
 
-	if (!$room_name || !$room_type || !$room_address|| !$room_price) {
+	if (!$room_name || !$room_type || !$room_description || !$room_address|| !$room_price) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}else{
-		if ($connect->query("INSERT INTO kamar (nama_kamar, tipe_kamar, alamat_kamar, harga_kamar, kd_lokasi) VALUES ('$room_name','$room_type','$room_address','$room_price','$kd_lokasi')") == true) {
+		if ($connect->query("INSERT INTO kamar (nama_kamar, tipe_kamar, deskripsi_kamar, alamat_kamar, harga_kamar, kd_lokasi) VALUES ('$room_name','$room_type', '$room_description', '$room_address','$room_price','$kd_lokasi')") == true) {
 			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil ditambahkan.');
 		}else{
-			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
-			echo mysqli_error($connect);
+			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
 		}
 	}
 }
 if (isset($_POST['edit_data'])) {
 	$room_name = $connect->real_escape_string(filter($_POST['room_name']));
 	$room_type = $connect->real_escape_string(filter($_POST['room_type']));
+	$room_description = $connect->real_escape_string(filter($_POST['room_description']));
 	$room_address = $connect->real_escape_string(filter($_POST['room_address']));
 	$room_price = $connect->real_escape_string(filter($_POST['room_price']));
 	$kd_kamar = $connect->real_escape_string(filter($_POST['kd_kamar']));
 
-	if (!$room_name || !$room_type || !$room_address|| !$room_price|| !$kd_kamar) {
+	if (!$room_name || !$room_type || !$room_description || !$room_address|| !$room_price|| !$kd_kamar) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}else{
-		if ($connect->query("UPDATE kamar SET nama_kamar = '$room_name', tipe_kamar = '$room_type', alamat_kamar = '$room_address', harga_kamar = '$room_price' WHERE kd_kamar = '$kd_kamar'") == true) {
+		if ($connect->query("UPDATE kamar SET nama_kamar = '$room_name', tipe_kamar = '$room_type', deskripsi_kamar = '$room_description', alamat_kamar = '$room_address', harga_kamar = '$room_price' WHERE kd_kamar = '$kd_kamar'") == true) {
 			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah.');
 		}else{
 			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
@@ -61,7 +62,7 @@ if (isset($_POST['delete_data'])) {
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0 text-dark"><?=$page?></h1>
+					<h1 class="m-0 text-dark"><i class="nav-icon fas fa-bed"></i> <?=$page?></h1>
 				</div><!-- /.col -->
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
@@ -119,6 +120,14 @@ if (isset($_POST['delete_data'])) {
 													<div class="input-group-append">
 														<div class="input-group-text">
 															<span class="fa fa-bed"></span>
+														</div>
+													</div>
+												</div>
+												<div class="input-group mb-3">
+													<textarea name="room_description" class="form-control" rows="2" placeholder="Deskripsi Kamar ..."></textarea>
+													<div class="input-group-append">
+														<div class="input-group-text">
+															<span class="fas fa-file-alt"></span>
 														</div>
 													</div>
 												</div>
@@ -206,6 +215,14 @@ if (isset($_POST['delete_data'])) {
 																		<div class="input-group-append">
 																			<div class="input-group-text">
 																				<span class="fa fa-bed"></span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="input-group mb-3">
+																		<textarea name="room_description" class="form-control" rows="2" placeholder="Deskripsi Kamar ..."><?=$data_rooms['deskripsi_kamar']?></textarea>
+																		<div class="input-group-append">
+																			<div class="input-group-text">
+																				<span class="fas fa-map-marker-alt"></span>
 																			</div>
 																		</div>
 																	</div>

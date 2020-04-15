@@ -24,6 +24,7 @@ RewriteRule    ^admin/?$    admin/index.php    [NC,L]
 RewriteRule    ^admin/login/?$    admin/login_admin.php    [NC,L] 
 RewriteRule    ^admin/logout/?$    admin/logout.php    [NC,L] 
 RewriteRule    ^admin/manage-rooms/?$    admin/lib/room_management/list.php    [NC,L] 
+RewriteRule    ^admin/manage-guests/?$    admin/lib/guest_management/list.php    [NC,L] 
 
 </IfModule>
 

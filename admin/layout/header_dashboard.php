@@ -95,39 +95,39 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?=base_url()?>admin/manage-rooms" class="nav-link">
+							<a href="<?=base_url()?>admin/manage-rooms/" class="nav-link">
 								<i class="nav-icon fas fa-bed"></i>
-								<p>Kelola Kamar</p>
+								<p>Kamar</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="<?=base_url()?>admin/manage-guests/" class="nav-link">
 								<i class="nav-icon fas fa-users"></i>
-								<p>Kelola Tamu</p>
+								<p>Tamu</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fas fa-book-open"></i>
-								<p>Kelola Reservasi</p>
+								<p>Reservasi</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fas fa-hand-holding-usd"></i>
-								<p>Kelola Pembayaran</p>
+								<p>Pembayaran</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fas fa-star"></i>
-								<p>Kelola Penilaian</p>
+								<p>Penilaian</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fas fa-book"></i>
-								<p>Kelola Laporan</p>
+								<p>Laporan</p>
 							</a>
 						</li>
 						<li class="nav-header">Setting</li>
