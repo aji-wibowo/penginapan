@@ -14,8 +14,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="<?=base_url()?>assets/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?=base_url()?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -23,7 +21,8 @@
 	$.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="<?=base_url()?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>\
+<script src="<?=base_url()?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?=base_url()?>assets/js/bootstrap-datepicker.min.js"></script>
 <!-- DataTables -->
 <script src="<?=base_url()?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?=base_url()?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -57,6 +56,10 @@
   // Alert auto hidden
   $(".alert").delay(2000).slideUp(500, function() {
     $(this).alert('close');
+  });
+
+  $('.dateMe').datetimepicker({
+    language: 'pt-BR'
   });
 
   $(function () {

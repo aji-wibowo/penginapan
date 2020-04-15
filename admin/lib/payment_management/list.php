@@ -9,14 +9,14 @@ require '../../layout/header_dashboard.php';
 
 if (isset($_POST['edit_data'])) {
 	$payment_status = $connect->real_escape_string(filter($_POST['payment_status']));
-	// $payment_date = $connect->real_escape_string(filter($_POST['payment_date']));
+	$payment_date = $connect->real_escape_string(filter($_POST['date']));
 	$kd_bayar = $connect->real_escape_string(filter($_POST['kd_bayar']));
 
 	if (!$payment_status || !$kd_bayar) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}
 	else{
-		if ($connect->query("UPDATE pembayaran SET status = '$payment_status' WHERE kd_bayar = '$kd_bayar'") == true) {
+		if ($connect->query("UPDATE pembayaran SET status = '$payment_status', tgl_bayar = '".date('Y-m-d h:i:s', strtotime($payment_date))."' WHERE kd_bayar = '$kd_bayar'") == true) {
 			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah.');
 		}else{
 			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
@@ -186,6 +186,15 @@ if (isset($_POST['delete_data'])) {
 																			<option value="pending">Pending</option>
 																			<option value="lunas">Lunas</option>
 																		</select>
+																	</div>
+																	<div class="form-group">
+																		<label>Tanggal Pembayaran</label>
+																		<div class='input-group date' id='datetimepicker1'>
+																			<input class="form-control" type="datetime-local" id="example-datetime-local-input" name="date">
+																			<span class="input-group-addon">
+																				<!-- <span class="fas fa-calendar"></span> -->
+																			</span>
+																		</div>
 																	</div>
 																	<input type="text" name="kd_bayar" value="<?=$data_payments['kd_bayar']?>" hidden>
 																</div>

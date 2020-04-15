@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+	<link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap-datepicker.min.css">
 	<!-- JQVMap -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/jqvmap/jqvmap.min.css">
 	<!-- DataTables -->
@@ -33,6 +34,9 @@
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/summernote/summernote-bs4.css">
 	<!-- Google Font: Source Sans Pro -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script src="<?=base_url()?>assets/plugins/jquery/jquery.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
