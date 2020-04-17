@@ -1,6 +1,6 @@
 <?php
 //Nama page/halaman
-$page = "Login";
+$page = "Login Admin";
 
 //Start session
 session_start();
@@ -49,7 +49,7 @@ if (isset($_SESSION['admin'])) {
 ?>
 <div class="login-box">
 	<div class="login-logo">
-		<p>Login</p>
+		<p><?=$page?></p>
 	</div>
 	<?php
 	if (isset($_SESSION['notification']['alert'])) {

@@ -33,15 +33,6 @@ require '../../view/auth/header_auth.php';
 					<!-- /.col -->
 				</div>
 			</form>
-
-			<div class="social-auth-links text-center mb-3">
-				<p class="mb-1">
-					<a href="forgot-password.html">Lupa Password?</a>
-				</p>
-				<p class="mb-0">
-					Belum punya akun? <a href="<?=base_url()?>register/">Klik Disini</a>
-				</p>
-			</div>
 			<!-- /.social-auth-links -->
 		</div>
 		<!-- /.login-card-body -->

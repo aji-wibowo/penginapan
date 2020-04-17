@@ -17,17 +17,19 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php
 
-RewriteRule    ^login/?$    lib/auth/login.php    [NC,L]   
-RewriteRule    ^register/?$    lib/auth/register.php    [NC,L] 
+RewriteRule    ^user/?$    user/index.php    [NC,L]   
+RewriteRule    ^user/login/?$    user/login_user.php    [NC,L]   
+RewriteRule    ^user/register/?$    user/register_user.php    [NC,L] 
+RewriteRule    ^user/logout/?$    user/logout.php    [NC,L] 
 
 RewriteRule    ^admin/?$    admin/index.php    [NC,L] 
 RewriteRule    ^admin/login/?$    admin/login_admin.php    [NC,L] 
-RewriteRule    ^admin/logout/?$    admin/logout.php    [NC,L] 
 RewriteRule    ^admin/manage-rooms/?$    admin/lib/room_management/list.php    [NC,L] 
 RewriteRule    ^admin/manage-guests/?$    admin/lib/guest_management/list.php    [NC,L] 
 RewriteRule    ^admin/manage-reservations/?$    admin/lib/reservation_management/list.php    [NC,L] 
 RewriteRule    ^admin/manage-payments/?$    admin/lib/payment_management/list.php    [NC,L] 
 RewriteRule    ^admin/manage-ratings/?$    admin/lib/rating_management/list.php    [NC,L] 
+RewriteRule    ^admin/logout/?$    admin/logout.php    [NC,L] 
 
 </IfModule>
 
