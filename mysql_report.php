@@ -8,7 +8,7 @@
 
 
 // Include the FPDF library. Alter for your system
-require('../../../fpdf/fpdf.php');
+//require('../../../fpdf/fpdf.php');
 
 class PDF extends FPDF {
 
@@ -222,7 +222,7 @@ function mysql_report($query, $dump=false, $attr=array()){
 
 	// if column widths not set
 	if(!isset($this->tablewidths)){
-			Header('Content-type: text/plain');
+		Header('Content-type: text/plain');
 
         // starting col width
 		$this->sColWidth = (($this->w-$this->lMargin-$this->rMargin))/$this->numFields;

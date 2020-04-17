@@ -5,6 +5,8 @@
 //************************************************
 //error_reporting(0);
 
+require('fpdf/fpdf.php');
+
 // you may need to change mysql_report.php to find the fpdf libraries
 require('mysql_report.php');
 
@@ -19,6 +21,9 @@ $config['db'] = array(
 	'username' => 'root',
 	'password' => ''
 );
+
+// should not need changing, change above instead.
+$pdf->connect($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['name']);
 
 $connect = mysqli_connect($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['name']);
 if(!$connect) {

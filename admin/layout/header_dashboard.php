@@ -132,7 +132,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?=base_url()?>admin/manage-report/" class="nav-link <?php if(isset($page) == "Daftar Laporan"){ echo"active"; } ?>">
+							<a href="<?=base_url()?>admin/manage-report/" class="nav-link <?php if($page == "Daftar Laporan"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-book"></i>
 								<p>Laporan</p>
 							</a>
