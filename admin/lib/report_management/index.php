@@ -37,7 +37,49 @@ require '../../layout/header_dashboard.php';
 						<div class="card-header">
 							<h3 class="card-title"><?=$page?></h3>
 						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<form action="<?= base_url() ?>admin/manage-report/cetak" method="post">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Date from:</label>
 
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="far fa-calendar-alt"></i>
+															</span>
+														</div>
+														<input type="date" name="dateFrom" class="form-control float-right" id="reservation">
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Date to:</label>
+
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="far fa-calendar-alt"></i>
+															</span>
+														</div>
+														<input type="date" name="dateTo" class="form-control float-right" id="reservation">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<button class="btn btn-sm btn-success float-right" type="submit" name="submit">Print</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

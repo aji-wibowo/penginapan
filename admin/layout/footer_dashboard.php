@@ -62,6 +62,8 @@
     language: 'pt-BR'
   });
 
+  $('#reservation').daterangepicker();
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
