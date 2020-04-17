@@ -27,6 +27,7 @@ RewriteRule    ^admin/manage-rooms/?$    admin/lib/room_management/list.php    [
 RewriteRule    ^admin/manage-guests/?$    admin/lib/guest_management/list.php    [NC,L] 
 RewriteRule    ^admin/manage-reservations/?$    admin/lib/reservation_management/list.php    [NC,L] 
 RewriteRule    ^admin/manage-payments/?$    admin/lib/payment_management/list.php    [NC,L] 
+RewriteRule    ^admin/manage-ratings/?$    admin/lib/rating_management/list.php    [NC,L] 
 
 </IfModule>
 

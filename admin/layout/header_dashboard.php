@@ -93,50 +93,50 @@
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 						<li class="nav-item">
-							<a href="<?=base_url()?>admin/" class="nav-link active">
+							<a href="<?=base_url()?>admin/" class="nav-link <?php if($page == "Dashboard Admin"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>Dashboard</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?=base_url()?>admin/manage-rooms/" class="nav-link">
+							<a href="<?=base_url()?>admin/manage-rooms/" class="nav-link <?php if($page == "Daftar Kamar"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-bed"></i>
 								<p>Kamar</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?=base_url()?>admin/manage-guests/" class="nav-link">
+							<a href="<?=base_url()?>admin/manage-guests/" class="nav-link <?php if($page == "Daftar Tamu"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-users"></i>
 								<p>Tamu</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?=base_url()?>admin/manage-reservations/" class="nav-link">
+							<a href="<?=base_url()?>admin/manage-reservations/" class="nav-link <?php if($page == "Daftar Reservasi"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-book-open"></i>
 								<p>Reservasi</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?=base_url()?>admin/manage-payments/" class="nav-link">
+							<a href="<?=base_url()?>admin/manage-payments/" class="nav-link <?php if($page == "Daftar Pembayaran"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-hand-holding-usd"></i>
 								<p>Pembayaran</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="<?=base_url()?>admin/manage-ratings/" class="nav-link <?php if($page == "Daftar Penilaian"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-star"></i>
 								<p>Penilaian</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="#" class="nav-link <?php if($page == "Daftar Laporan"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-book"></i>
 								<p>Laporan</p>
 							</a>
 						</li>
 						<li class="nav-header">Setting</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="#" class="nav-link <?php if($page == "Pengaturan Akun"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-cog"></i>
 								<p>Akun</p>
 							</a>

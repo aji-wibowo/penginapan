@@ -33,19 +33,6 @@ require '../../layout/header_dashboard.php';
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12">
-					<?php
-					if (isset($_SESSION['notification']['alert'])) {
-						?>
-						<div class="alert alert-<?=$_SESSION['notification']['alert']?>">
-							<h5><?=$_SESSION['notification']['title']?>!</h5>
-							<?=$_SESSION['notification']['message']?>
-						</div>
-						<?php
-						unset($_SESSION['notification']);
-					}
-					?>
-				</div>
-				<div class="col-12">
 					<div class="card">
 						<div class="card-header">
 							<h3 class="card-title"><?=$page?></h3>
@@ -157,11 +144,7 @@ require '../../layout/header_dashboard.php';
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-							<li>Tekan tombol <button type="button" class="btn btn-xs btn-primary"><i class="fas fa-plus btn-xs"></i> Tambah Data</button> untuk menambahkan data baru.</li>
-							<li>Tekan tombol <button type="button" class="btn btn-xs btn-success"><i class="fas fa-paper-plane btn-xs"></i> Simpan</button> untuk menyimpan data.</li>
-							<li>Tekan tombol <button type="button" class="btn btn-xs btn-danger"><i class="fas fa-times btn-xs"></i> Batal</button> untuk membatalkan aksi.</li>
-							<li>Tekan tombol <button type="button" class="btn btn-warning btn-xs"><i class="fas fa-pen"></i></button> untuk merubah data yang sudah ada.</li>
-							<li>Tekan tombol <button type="button" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></button> untuk menghapus data yang sudah ada.</li>
+							<li>Tekan tombol <button type="button" class="btn btn-info btn-xs"><i class="fas fa-info-circle"></i></button> untuk melihat detail data.</li>
 						</div>
 						<!-- /.card-body -->
 					</div>
