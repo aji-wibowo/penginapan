@@ -5,6 +5,13 @@
 //************************************************
 //error_reporting(0);
 
+// you may need to change mysql_report.php to find the fpdf libraries
+require('mysql_report.php');
+
+// the PDF is defined as normal, in this case a Landscape, measurements in points, A3 page.
+$pdf = new PDF('L','pt','A3');
+$pdf->SetFont('Arial','',10);
+
 //Konfigurasi database
 $config['db'] = array(
 	'host' => 'localhost',
