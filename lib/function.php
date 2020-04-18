@@ -132,6 +132,31 @@ function get_flashdata($key){
 	return $data;
 }
 
+function generateAllMonths(){
+	for ($m=1; $m<=12; $m++) {
+		$month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+		$months[] = $month;
+	}
+
+	return $months;
+}
+
+function js_str($s)
+{
+    return '"' . addcslashes($s, "\0..\37\"\\") . '"';
+}
+
+function js_array($array)
+{
+    $temp = array_map('js_str', $array);
+    return '[' . implode(',', $temp) . ']';
+}
+
+function arrayPrint($array){
+	echo '<pre>';
+	print_r($array);
+	echo '</pre>';
+}
 
 
 
