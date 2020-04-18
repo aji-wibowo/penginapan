@@ -40,6 +40,16 @@ require '../../layout/header_dashboard.php';
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-12">
+									<?php
+									if (check_flashdata('message') != '') {
+										?>
+										<div class="alert alert-danger">
+											<h5>Error!</h5>
+											<?=get_flashdata('message')?>
+										</div>
+										<?php
+									}
+									?>
 									<form action="<?= base_url() ?>admin/manage-report/cetak" method="post">
 										<div class="row">
 											<div class="col-md-6">
@@ -52,7 +62,7 @@ require '../../layout/header_dashboard.php';
 																<i class="far fa-calendar-alt"></i>
 															</span>
 														</div>
-														<input type="date" name="dateFrom" class="form-control float-right" id="reservation">
+														<input type="date" name="dateFrom" class="form-control float-right">
 													</div>
 												</div>
 											</div>
@@ -66,7 +76,7 @@ require '../../layout/header_dashboard.php';
 																<i class="far fa-calendar-alt"></i>
 															</span>
 														</div>
-														<input type="date" name="dateTo" class="form-control float-right" id="reservation">
+														<input type="date" name="dateTo" class="form-control float-right">
 													</div>
 												</div>
 											</div>
@@ -86,3 +96,8 @@ require '../../layout/header_dashboard.php';
 		</div>
 	</section>
 </div>
+
+<!-- /.content-wrapper -->
+<?php
+require '../../layout/footer_dashboard.php';
+?>
