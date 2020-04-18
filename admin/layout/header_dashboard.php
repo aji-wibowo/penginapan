@@ -139,7 +139,7 @@
 						</li>
 						<li class="nav-header">Setting</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link <?php if($page == "Pengaturan Akun"){ echo"active"; } ?>">
+							<a href="<?= base_url() ?>admin/my-account" class="nav-link <?php if($page == "Pengaturan Akun"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-cog"></i>
 								<p>Akun</p>
 							</a>

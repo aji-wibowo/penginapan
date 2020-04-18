@@ -83,7 +83,7 @@ require '../../layout/header_dashboard.php';
 										</div>
 										<div class="row">
 											<div class="col-md-12">
-												<button class="btn btn-sm btn-success float-right" type="submit" name="submit">Print</button>
+												<button class="btn btn-sm btn-success float-right" type="submit" name="submit"><i class="fas fa-print btn-xs"></i> print</button>
 											</div>
 										</div>
 									</form>
@@ -91,6 +91,20 @@ require '../../layout/header_dashboard.php';
 							</div>
 						</div>
 					</div>
+					<!-- /.card -->
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Informasi</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<li>Tekan tombol <button type="button" class="btn btn-sm btn-success"><i class="fas fa-print btn-xs"></i> print</button> untuk mendownload laporan pdf.</li>
+							<li>Isi date from dan date to dengan benar.</li>
+							<li>Pengisian tanggal date from tidak boleh lebih dari date to.</li>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
 				</div>
 			</div>
 		</div>
