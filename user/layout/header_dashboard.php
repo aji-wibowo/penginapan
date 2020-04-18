@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- Tempusdominus Bbootstrap 4 -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/jquery.Jcrop.min.css">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap-datepicker.min.css">
@@ -34,6 +35,17 @@
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/summernote/summernote-bs4.css">
 	<!-- Google Font: Source Sans Pro -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+	<style type="text/css">
+		.description{
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		.description p{
+			margin: 0;
+		}
+	</style>
 
 	<!-- jQuery -->
 	<script src="<?=base_url()?>assets/plugins/jquery/jquery.min.js"></script>
@@ -93,9 +105,15 @@
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 						<li class="nav-item">
-							<a href="<?=base_url()?>user/" class="nav-link <?php if($page == "Dashboard Admin"){ echo"active"; } ?>">
+							<a href="<?=base_url()?>user/" class="nav-link <?php if($page == "Dashboard User"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>Dashboard</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="<?=base_url()?>user/hotel" class="nav-link <?php if($page == "Hotel List"){ echo"active"; } ?>">
+								<i class="nav-icon fas fa-home"></i>
+								<p>Daftar Kamar</p>
 							</a>
 						</li>
 						<li class="nav-header">Setting</li>

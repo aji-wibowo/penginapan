@@ -17,7 +17,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php
 
-RewriteRule    ^user/?$    user/index.php    [NC,L]   
+RewriteRule    ^user/?$    user/index.php    [NC,L] 
+RewriteRule    ^user/hotel/?$    user/lib/page_kamar/list.php    [NC,L] 
 RewriteRule    ^user/login/?$    user/login_user.php    [NC,L]   
 RewriteRule    ^user/register/?$    user/register_user.php    [NC,L] 
 RewriteRule    ^user/logout/?$    user/logout.php    [NC,L] 

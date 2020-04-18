@@ -143,19 +143,34 @@ function generateAllMonths(){
 
 function js_str($s)
 {
-    return '"' . addcslashes($s, "\0..\37\"\\") . '"';
+	return '"' . addcslashes($s, "\0..\37\"\\") . '"';
 }
 
 function js_array($array)
 {
-    $temp = array_map('js_str', $array);
-    return '[' . implode(',', $temp) . ']';
+	$temp = array_map('js_str', $array);
+	return '[' . implode(',', $temp) . ']';
 }
 
 function arrayPrint($array){
 	echo '<pre>';
 	print_r($array);
 	echo '</pre>';
+}
+
+function uploadFile($file, $path){
+	$targetPath = $path . $file['name'];
+	if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+		return true;
+	}
+
+	echo $file['error'];
+}
+
+function getExtension($file){
+	$exploded = explode('.', $file['name']);
+	$extension = end($exploded);
+	return $extension;
 }
 
 

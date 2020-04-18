@@ -1,6 +1,6 @@
 <?php
 //Nama page/halaman
-$page = "Dashboard Admin";
+$page = "Dashboard User";
 
 //Start session
 session_start();

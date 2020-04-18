@@ -17,6 +17,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="<?=base_url()?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script type="text/javascript" src="<?= base_url() ?>assets/js/croppie.js"></script>
 <script>
 	$.widget.bridge('uibutton', $.ui.button)
 </script>
@@ -134,6 +135,114 @@
       }
     });
   })
+
+  var w = $(window).width(),
+
+  h = $(window).height();
+
+
+
+  $image_crop = $('#image_demo').croppie({
+
+    enableExif: true,
+
+    viewport: {
+
+      width:300,
+
+      height:400,
+
+      type:'square'
+
+    },
+
+    boundary:{
+
+      width:w,
+
+      height:h
+
+    },
+
+    enableResize: true,
+
+    enableOrientation: true,
+
+    mouseWheelZoom: 'ctrl'
+
+  });
+
+
+
+  $('#upload_image').on('change', function(){
+
+    var reader = new FileReader();
+
+    reader.onload = function (event) {
+
+      $image_crop.croppie('bind', {
+
+        url: event.target.result
+
+      }).then(function(){
+
+        console.log('jQuery bind complete');
+
+      });
+
+    }
+
+    reader.readAsDataURL(this.files[0]);
+
+    $('#uploadimageModal').modal('show');
+
+  });
+
+
+
+  $('.crop_image').click(function(event){
+
+    $image_crop.croppie('result', {
+
+      type: 'canvas',
+
+      size: 'viewport'
+
+    }).then(function(response){
+
+      var judul = $('input[name="judul"]').val();
+
+      $.ajax({
+
+        url:"{{url('api/image/cropped')}}",
+
+        type: "POST",
+
+        data:{"image": response, "nama" : judul},
+
+        success:function(data)
+
+        {
+
+          var obj = $.parseJSON(data);
+
+          $('#uploadimageModal').modal('hide');
+
+          $('#uploadedimage').html('<img src="{{url("images/konten/spot/header")}}/'+obj+'">');
+
+          var input = '<input type="hidden" name="headerName">';
+
+          $('#formHidden').append(input);
+
+          $('input[name="headerName"]').val(obj);
+
+        }
+
+      });
+
+    })
+
+  });
 
 </script>
 </body>
