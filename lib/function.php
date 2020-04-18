@@ -114,3 +114,36 @@ function register($data) {
 	return mysqli_affected_rows($conn);
 
 }
+
+function set_flashdata($key, $value){
+	$_SESSION[$key] = $value;
+}
+
+function check_flashdata($key){
+	$data = $_SESSION[$key];
+	return $data;
+}
+
+function get_flashdata($key){
+	$data = $_SESSION[$key];
+	if($_SESSION[$key] != ''){
+		$_SESSION[$key] = '';
+	}
+	return $data;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
