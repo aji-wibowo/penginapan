@@ -19,7 +19,7 @@ if (isset($_SESSION['admin'])) {
 		$password = $connect->real_escape_string(trim(filter($_POST['password'])));
 
 		//Cek apakah email ada?
-		$check_admin = $connect->query("SELECT * FROM admin WHERE email = '$email'");
+		$check_admin = $connect->query("SELECT * FROM admin JOIN lokasi ON admin.kd_lokasi=lokasi.kd_lokasi WHERE email = '$email'");
 		$check_admin_rows = mysqli_num_rows($check_admin);
 		$data_admin = mysqli_fetch_assoc($check_admin);
 
