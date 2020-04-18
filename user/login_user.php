@@ -9,8 +9,8 @@ session_start();
 require 'layout/header_auth.php';
 
 //Jika sudah ada user login terdeteksi arahkan ke halaman utama
-if (isset($_SESSION['admin'])) {
-	header("Location: ".base_url()."admin/");
+if (isset($_SESSION['user'])) {
+	header("Location: ".base_url()."user/");
 } else {
 	//Jika tombol login ditekan
 	if (isset($_POST['login'])) {
