@@ -9,7 +9,7 @@ session_start();
 require 'layout/header_auth.php';
 
 //Set null notifikasi
-notification();
+// notification();
 
 //Jika sudah ada user login terdeteksi arahkan ke halaman utama
 if (isset($_SESSION['user'])) {

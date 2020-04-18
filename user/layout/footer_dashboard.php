@@ -17,6 +17,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="<?=base_url()?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script type="text/javascript" src="<?= base_url() ?>assets/jsjquery.Jcrop.min.js"></script>
 <script>
 	$.widget.bridge('uibutton', $.ui.button)
 </script>

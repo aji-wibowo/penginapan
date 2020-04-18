@@ -14,13 +14,22 @@ if (isset($_POST['add_data'])) {
 	$room_price = $connect->real_escape_string(filter($_POST['room_price']));
 	$kd_lokasi = $_SESSION['admin']['kd_lokasi'];
 
-	if (!$room_name || !$room_type || !$room_description || !$room_address|| !$room_price) {
+	if (!$room_name || !$room_type || !$room_description || !$room_address|| !$room_price || empty($_FILES['room_photo'])) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}else{
-		if ($connect->query("INSERT INTO kamar (nama_kamar, tipe_kamar, deskripsi_kamar, alamat_kamar, harga_kamar, kd_lokasi) VALUES ('$room_name','$room_type', '$room_description', '$room_address','$room_price','$kd_lokasi')") == true) {
-			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil ditambahkan.');
+		if(getExtension($_FILES['room_photo']) == 'jpg' || getExtension($_FILES['room_photo']) == 'png' || getExtension($_FILES['room_photo']) == 'jpeg' || getExtension($_FILES['room_photo']) == 'PNG' || getExtension($_FILES['room_photo']) == 'JPEG' || getExtension($_FILES['room_photo']) == 'JPG'){
+			$path = '../../../assets/img/kamar/';
+			if(uploadFile($_FILES['room_photo'], $path)){
+				if ($connect->query("INSERT INTO kamar (nama_kamar, tipe_kamar, deskripsi_kamar, alamat_kamar, harga_kamar, kd_lokasi, foto_kamar) VALUES ('$room_name','$room_type', '$room_description', '$room_address','$room_price','$kd_lokasi', '".$_FILES['room_photo']['name']."')") == true) {
+					$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil ditambahkan.');
+				}else{
+					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
+				}
+			}else{
+				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error! Gagal upload '. $_FILES['room_photo']['error']);
+			}
 		}else{
-			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
+			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'file hanya support image dengan format jpg dan png');
 		}
 	}
 }
@@ -35,10 +44,28 @@ if (isset($_POST['edit_data'])) {
 	if (!$room_name || !$room_type || !$room_description || !$room_address|| !$room_price|| !$kd_kamar) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}else{
-		if ($connect->query("UPDATE kamar SET nama_kamar = '$room_name', tipe_kamar = '$room_type', deskripsi_kamar = '$room_description', alamat_kamar = '$room_address', harga_kamar = '$room_price' WHERE kd_kamar = '$kd_kamar'") == true) {
-			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah.');
+		if(!empty($_FILES['room_photo'])){
+			echo getExtension($_FILES['room_photo']);
+			if(getExtension($_FILES['room_photo']) == 'jpg' || getExtension($_FILES['room_photo']) == 'png' || getExtension($_FILES['room_photo']) == 'jpeg' || getExtension($_FILES['room_photo']) == 'PNG' || getExtension($_FILES['room_photo']) == 'JPEG' || getExtension($_FILES['room_photo']) == 'JPG'){
+				$path = '../../../assets/img/kamar/';
+				if(uploadFile($_FILES['room_photo'], $path)){
+					if ($connect->query("UPDATE kamar SET nama_kamar = '$room_name', tipe_kamar = '$room_type', deskripsi_kamar = '$room_description', alamat_kamar = '$room_address', harga_kamar = '$room_price', foto_kamar = '".$_FILES['room_photo']['name']."' WHERE kd_kamar = '$kd_kamar'") == true) {
+						$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah.');
+					}else{
+						$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
+					}
+				}else{
+					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error! Gagal upload '. $_FILES['room_photo']['error']);
+				}
+			}else{
+				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'file hanya support image dengan format jpg dan png');
+			}
 		}else{
-			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
+			if ($connect->query("UPDATE kamar SET nama_kamar = '$room_name', tipe_kamar = '$room_type', deskripsi_kamar = '$room_description', alamat_kamar = '$room_address', harga_kamar = '$room_price' WHERE kd_kamar = '$kd_kamar'") == true) {
+				$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah. (no foto)');
+			}else{
+				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
+			}
 		}
 	}
 }
@@ -106,7 +133,7 @@ if (isset($_POST['delete_data'])) {
 											</button>
 										</div>
 										<div class="modal-body">
-											<form method="POST">
+											<form method="POST" enctype="multipart/form-data">
 												<div class="input-group mb-3">
 													<input type="text" name="room_name" class="form-control" placeholder="Nama Kamar">
 													<div class="input-group-append">
@@ -148,6 +175,14 @@ if (isset($_POST['delete_data'])) {
 													</div>
 												</div>
 												<p>*<small>Pada <i>harga kamar</i> input nomor saja tanpa tanda baca.</small></p>
+												<div class="input-group mb-3">
+													<input type="file" name="room_photo" class="form-control">
+													<div class="input-group-append">
+														<div class="input-group-text">
+															<span class="fa fa-upload"></span>
+														</div>
+													</div>
+												</div>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times btn-xs"></i> Batal</button>
@@ -192,7 +227,7 @@ if (isset($_POST['delete_data'])) {
 											<td>
 												<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-edit-data<?=$no?>"><i class="fas fa-pen"></i></button>
 												<div class="modal fade" id="modal-edit-data<?=$no?>">
-													<div class="modal-dialog">
+													<div class="modal-dialog modal-lg">
 														<div class="modal-content">
 															<div class="modal-header">
 																<h4 class="modal-title">Ubah Data Kamar #<?=$no?></h4>
@@ -201,49 +236,73 @@ if (isset($_POST['delete_data'])) {
 																</button>
 															</div>
 															<div class="modal-body">
-																<form method="POST">
-																	<div class="input-group mb-3">
-																		<input type="text" name="room_name" class="form-control" placeholder="Nama Kamar" value="<?=$data_rooms['nama_kamar']?>">
-																		<div class="input-group-append">
-																			<div class="input-group-text">
-																				<span class="fa fa-door-open"></span>
+																<div class="row">
+																	<div class="col-md-6">
+																		<form method="POST" enctype="multipart/form-data">
+																			<div class="input-group mb-3">
+																				<input type="text" name="room_name" class="form-control" placeholder="Nama Kamar" value="<?=$data_rooms['nama_kamar']?>">
+																				<div class="input-group-append">
+																					<div class="input-group-text">
+																						<span class="fa fa-door-open"></span>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="input-group mb-3">
+																				<input type="text" name="room_type" class="form-control" placeholder="Tipe Kamar" value="<?=$data_rooms['tipe_kamar']?>">
+																				<div class="input-group-append">
+																					<div class="input-group-text">
+																						<span class="fa fa-bed"></span>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="input-group mb-3">
+																				<textarea name="room_description" class="form-control" rows="2" placeholder="Deskripsi Kamar ..."><?=$data_rooms['deskripsi_kamar']?></textarea>
+																				<div class="input-group-append">
+																					<div class="input-group-text">
+																						<span class="fas fa-map-marker-alt"></span>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="input-group mb-3">
+																				<textarea name="room_address" class="form-control" rows="2" placeholder="Alamat Kamar ..."><?=$data_rooms['alamat_kamar']?></textarea>
+																				<div class="input-group-append">
+																					<div class="input-group-text">
+																						<span class="fas fa-map-marker-alt"></span>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="input-group mb-3">
+																				<input type="number" name="room_price" class="form-control" placeholder="Harga Kamar" value="<?=$data_rooms['harga_kamar']?>">
+																				<div class="input-group-append">
+																					<div class="input-group-text">
+																						<span class="fa fa-money-bill-wave"></span>
+																					</div>
+																				</div>
+																			</div>
+																			<p>*<small>Pada <i>harga kamar</i> input nomor saja tanpa tanda baca.</small></p>
+																			<div class="input-group mb-3">
+																				<input type="file" name="room_photo" class="form-control">
+																				<div class="input-group-append">
+																					<div class="input-group-text">
+																						<span class="fa fa-upload"></span>
+																					</div>
+																				</div>
+																			</div>
+																			<input type="text" name="kd_kamar" value="<?=$data_rooms['kd_kamar']?>" hidden>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="img-responsive">
+																				<div class="card" style="padding: 5px;">
+																					<div class="card-head">
+																						<h6 class="card-title">foto header saat ini</h6>
+																					</div>
+																					<div class="card-body">
+																						<img src="<?= base_url() ?>assets/img/kamar/<?= $data_rooms['foto_kamar'] ?>" style="width: 100%;">
+																					</div>
+																				</div>
 																			</div>
 																		</div>
 																	</div>
-																	<div class="input-group mb-3">
-																		<input type="text" name="room_type" class="form-control" placeholder="Tipe Kamar" value="<?=$data_rooms['tipe_kamar']?>">
-																		<div class="input-group-append">
-																			<div class="input-group-text">
-																				<span class="fa fa-bed"></span>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="input-group mb-3">
-																		<textarea name="room_description" class="form-control" rows="2" placeholder="Deskripsi Kamar ..."><?=$data_rooms['deskripsi_kamar']?></textarea>
-																		<div class="input-group-append">
-																			<div class="input-group-text">
-																				<span class="fas fa-map-marker-alt"></span>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="input-group mb-3">
-																		<textarea name="room_address" class="form-control" rows="2" placeholder="Alamat Kamar ..."><?=$data_rooms['alamat_kamar']?></textarea>
-																		<div class="input-group-append">
-																			<div class="input-group-text">
-																				<span class="fas fa-map-marker-alt"></span>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="input-group mb-3">
-																		<input type="number" name="room_price" class="form-control" placeholder="Harga Kamar" value="<?=$data_rooms['harga_kamar']?>">
-																		<div class="input-group-append">
-																			<div class="input-group-text">
-																				<span class="fa fa-money-bill-wave"></span>
-																			</div>
-																		</div>
-																	</div>
-																	<input type="text" name="kd_kamar" value="<?=$data_rooms['kd_kamar']?>" hidden>
-																	<p>*<small>Pada <i>harga kamar</i> input nomor saja tanpa tanda baca.</small></p>
 																</div>
 																<div class="modal-footer">
 																	<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times btn-xs"></i> Batal</button>

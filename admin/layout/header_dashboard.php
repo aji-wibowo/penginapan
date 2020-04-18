@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- Tempusdominus Bbootstrap 4 -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/croppie.css">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap-datepicker.min.css">
