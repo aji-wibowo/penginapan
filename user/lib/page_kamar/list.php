@@ -12,6 +12,63 @@ require '../../lib/session_user.php';
 
 //Ambil template header dashboard
 require '../../layout/header_dashboard.php';
+
+//initialis kamar data
+function initializKamar($connect){
+	$dataKamar = $connect->query("SELECT * FROM kamar k JOIN lokasi l ON k.kd_lokasi=l.kd_lokasi");
+	while($row = $dataKamar->fetch_assoc()){
+		$stack[] = $row;
+	}
+
+	return $stack;
+}
+
+$stack = initializKamar($connect);
+
+if(isset($_POST['submit'])){
+	$kd_lokasi_post = $_POST['cari_kd_lokasi'];
+	if(empty($kd_lokasi_post)){
+		set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Pencarian Error', 'message' => 'Mohon isi lokasi'));
+	}else{
+		if(empty($_POST['rate_from']) && empty($_POST['rate_to'])){
+			unset($stack);
+			$dataKamar = $connect->query("SELECT * FROM kamar k JOIN lokasi l ON k.kd_lokasi=l.kd_lokasi WHERE k.kd_lokasi='".$_POST['cari_kd_lokasi']."'");
+			while($row = $dataKamar->fetch_assoc()){
+				$stack[] = $row;
+			}
+
+			if(count($stack) == 0){
+				$stack = initializKamar();
+				set_flashdata_array('notif', array('alert' => 'info', 'title' => 'Pencarian', 'message' => 'data tidak ada!'));
+			}
+		}else{
+			$rateFrom = $_POST['rate_from'];
+			$rateTo = $_POST['rate_to'];
+			if($rateFrom > $rateTo){
+				set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Pencarian Error', 'message' => 'harga rate from tidak boleh lebih tinggi dari rate to!'));
+			}else{
+				unset($stack);
+				$dataKamar = $connect->query("SELECT * FROM kamar k JOIN lokasi l ON k.kd_lokasi=l.kd_lokasi WHERE k.kd_lokasi='".$_POST['cari_kd_lokasi']."' AND harga_kamar BETWEEN '$rateFrom' AND '$rateTo'");
+
+				while($row = $dataKamar->fetch_assoc()){
+					$stack[] = $row;
+				}
+
+				if(count($stack) == 0){
+					$stack = initializKamar();
+					set_flashdata_array('notif', array('alert' => 'info', 'title' => 'Pencarian', 'message' => 'data tidak ada!'));
+				}
+			}
+		}
+	}
+}
+
+//get list lokasi
+$dataLokasi = $connect->query("SELECT * FROM lokasi");
+while($row = $dataLokasi->fetch_assoc()){
+	$stackLokasi[] = $row;
+}
+
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -36,31 +93,104 @@ require '../../layout/header_dashboard.php';
 	<section class="content">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-3">
-					<div class="card">
-						<div class="card-header">
-							<h3 class="card-title">Kamar bekas bundir</h3>
+				<div class="col-md-12">
+					<?php
+					if (!empty(check_flashdata('notif'))) {
+						$notif = get_flashdata('notif');
+						?>
+						<div class="alert alert-<?=$notif['alert']?>">
+							<h5><?=$notif['title']?>!</h5>
+							<?=$notif['message']?>
 						</div>
-						<div class="card-body">
-							<div class="img-responsive">
-								<img src="<?= base_url() ?>assets/img/kamar/person_1.jpg" style="width: 100%; height: 150px">
+						<?php
+					}
+					?>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Pencarian</h3>
+					</div>
+					<div class="card-body">
+						<form method="post">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<select class="form-control" name="cari_kd_lokasi">
+											<option value="">-Pilih Lokasi-</option>
+											<?php if(count($stackLokasi) > 0){ foreach($stackLokasi as $l){ ?>
+												<option <?= isset($kd_lokasi_post) ? 'selected' : '' ?> value="<?= $l['kd_lokasi'] ?>"><?= $l['kota'] ?></option>
+											<?php } }?>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<input type="number" name="rate_from" class="form-control" placeholder="range harga dari" value="<?= isset($rateFrom) ? $rateFrom : '' ?>">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<input type="number" name="rate_to" class="form-control" placeholder="range harga sampai" value="<?= isset($rateTo) ? $rateTo : '' ?>">
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group text-center">
+										<input type="submit" name="submit" class="btn btn-sm btn-success">
+									</div>
+								</div>
 							</div>
-							<div class="description">
-								<p>Lokasi : ada disini</p>
-								<p>Spec : Double Bed</p>
-							</div>
-							<div class="price">
-								<p>90.000</p>
-							</div>
-							<a href="#" class="btn btn-sm btn-success" style="width: 100%">reservasi</a>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
+		<div class="row">
+			<?php if(count($stack) > 0){ foreach ($stack as $row) { ?>
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title"><?= $row['nama_kamar'] ?></h3>
+						</div>
+						<div class="card-body">
+							<div class="img-responsive">
+								<img src="<?= base_url() ?>assets/img/kamar/<?= $row['foto_kamar'] ?>" style="width: 100%; height: 150px">
+							</div>
+							<div class="description">
+								<p><b>Lokasi</b> : <?= $row['kota'] ?></p>
+								<p><b>Tipe Kamar</b> : <?= $row['tipe_kamar'] ?></p>
+							</div>
+							<div class="price">
+								<p>Rp. <?= numberFormat($row['harga_kamar']) ?> / malam</p>
+							</div>
+							<a href="<?=base_url()?>user/kamar/<?= $row['kd_kamar'] ?>" class="btn btn-sm btn-success" style="width: 100%">reservasi</a>
+						</div>
+					</div>
+				</div>
+			<?php } }else { ?>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Data tidak ada.</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php } ?>
+		</div>
+	</div>
+</section>
 
 </div>
+
+
+<?php
+require '../../layout/footer_dashboard.php';
+?>
 
 
 
