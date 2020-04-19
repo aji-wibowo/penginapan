@@ -111,7 +111,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?=base_url()?>user/hotel" class="nav-link <?php if($page == "Hotel List"){ echo"active"; } ?>">
+							<a href="<?=base_url()?>user/kamar" class="nav-link <?php if($page == "Kamar List"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-home"></i>
 								<p>Daftar Kamar</p>
 							</a>

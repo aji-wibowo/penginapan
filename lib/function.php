@@ -119,17 +119,25 @@ function set_flashdata($key, $value){
 	$_SESSION[$key] = $value;
 }
 
+function set_flashdata_array($key, $array){
+	$_SESSION[$key] = $array;
+}
+
 function check_flashdata($key){
-	$data = $_SESSION[$key];
-	return $data;
+	if(isset($_SESSION[$key])){
+		$data = $_SESSION[$key];
+		return $data;
+	}
 }
 
 function get_flashdata($key){
-	$data = $_SESSION[$key];
-	if($_SESSION[$key] != ''){
-		$_SESSION[$key] = '';
+	if(isset($_SESSION[$key])){
+		$data = $_SESSION[$key];
+		if($_SESSION[$key] != ''){
+			$_SESSION[$key] = '';
+		}
+		return $data;
 	}
-	return $data;
 }
 
 function generateAllMonths(){
@@ -171,6 +179,10 @@ function getExtension($file){
 	$exploded = explode('.', $file['name']);
 	$extension = end($exploded);
 	return $extension;
+}
+
+function numberFormat($number){
+	return number_format($number, 0, '.', ',');
 }
 
 
