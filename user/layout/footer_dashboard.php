@@ -59,6 +59,10 @@
     $(this).alert('close');
   });
 
+  $(".alert-close10").delay(10000).slideUp(500, function() {
+    $(this).alert('close');
+  });
+
   $('.dateMe').datetimepicker({
     language: 'pt-BR'
   });
