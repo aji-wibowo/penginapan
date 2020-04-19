@@ -56,7 +56,7 @@ if($submit != ''){
 				set_flashdata_array('notif', array('alert' => 'success', 'title' => 'Berhasil Reservasi', 'message' => 'Silahkan lakukan bukti pembayaran!'));
 				echo "<script>window.location.href='".base_url()."user/checkout/sukses'</script>";
 			}else{
-				set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Something Wrong', 'message' => 'Silahkan coba sekali lagi!'));
+				set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Something Wrong', 'message' => 'Silahkan coba sekali lagi!'.mysqli_error($connect)));
 			}
 		}
 	}

@@ -63,7 +63,7 @@ if (isset($_POST['add_data'])) {
 		//Hash password1 menggunakan password hash bawaan php
 		$password_hash = password_hash($guest_password1, PASSWORD_DEFAULT);
 
-		if ($connect->query("INSERT INTO tamu (nik, nama_t, alamat, asal_kantor, no_tlp, email_t, username_t, password_t) VALUES ('$guest_nik','$guest_name', '$guest_address', '$guest_office_origin','$guest_phone_number','$guest_username','$guest_email','$password_hash')") == true) {
+		if ($connect->query("INSERT INTO tamu (nik, nama_t, alamat, asal_kantor, no_tlp, email_t, username_t, password_t) VALUES ('$guest_nik','$guest_name', '$guest_address', '$guest_office_origin','$guest_phone_number','$guest_email','$guest_username','$password_hash')") == true) {
 			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil ditambahkan.');
 		}else{
 			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
