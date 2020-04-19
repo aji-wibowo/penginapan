@@ -13,12 +13,11 @@ require '../../lib/session_user.php';
 //Ambil template header dashboard
 require '../../layout/header_dashboard.php';
 
-$kd_kamar = isset($_GET['kd_kamar']);
-
-if(isset($kd_kamar) != ''){
-	$detail = $connect->query("SELECT * FROM kamar k JOIN lokasi l ON k.kd_lokasi=l.kd_lokasi WHERE k.kd_kamar='$kd_kamar'")->fetch_assoc();
+$kd_kamar = isset($_GET['kd_kamar']) ? $_GET['kd_kamar'] : '';
+if($kd_kamar != ''){
+	$detail = $connect->query("SELECT * FROM kamar k JOIN lokasi l ON k.kd_lokasi=l.kd_lokasi WHERE k.kd_kamar='".$_GET['kd_kamar']."'")->fetch_assoc();
 }else{
-	set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Something Wrond', 'message' => 'Please dont act like you are a god!'));
+	set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Something Wrong', 'message' => 'Please dont act like you are a god!'));
 	header("Location: ".base_url()."user/kamar");
 	die();
 }
@@ -79,7 +78,7 @@ if(isset($kd_kamar) != ''){
 								<p>Harga : <?= numberFormat($detail['harga_kamar']) ?></p>
 							</div>
 							<div class="checkout-btn">
-								<a href="<?=base_url()?>kamar/booking/<?= $detail['kd_kamar'] ?>" class="btn btn-sm btn-info" style="width: 100%">booking</a>
+								<a href="<?=base_url()?>user/booking/<?= $detail['kd_kamar'] ?>" class="btn btn-sm btn-info" style="width: 100%">booking</a>
 							</div>
 						</div>
 					</div>
@@ -93,6 +92,9 @@ if(isset($kd_kamar) != ''){
 
 
 
+<?php
+require '../../layout/footer_dashboard.php';
+?>
 
 
 

@@ -185,6 +185,11 @@ function numberFormat($number){
 	return number_format($number, 0, '.', ',');
 }
 
+function getLastReservationCode($connect){
+	$rv = $connect->query("SELECT MAX(kd_reservasi) kd_reservasi FROM reservasi")->fetch_assoc();
+
+	return $rv;
+}
 
 
 
