@@ -111,9 +111,15 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?=base_url()?>user/kamar" class="nav-link <?php if($page == "Kamar List"){ echo"active"; } ?>">
+							<a href="<?=base_url()?>user/kamar" class="nav-link <?php if($page == "Daftar Kamar"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-home"></i>
 								<p>Daftar Kamar</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="<?=base_url()?>user/reservasi/" class="nav-link <?php if($page == "Daftar Reservasi"){ echo"active"; } ?>">
+								<i class="nav-icon fas fa-book-open"></i>
+								<p>Reservasi</p>
 							</a>
 						</li>
 						<li class="nav-header">Setting</li>

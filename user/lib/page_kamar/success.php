@@ -48,7 +48,7 @@ require '../../layout/header_dashboard.php';
     window.setTimeout(function(){
 
         // Move to a new location or you can do something else
-        window.location.href = "https://www.google.co.in";
+        window.location.href = "<?=base_url()?>user/reservasi/";
 
     }, 10000);
 
