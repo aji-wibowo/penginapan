@@ -58,36 +58,8 @@
 				<li class="nav-item">
 					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 				</li>
-			</ul>
-
-			<!-- Right navbar links -->
-			<ul class="navbar-nav ml-auto">
-				<!-- Notifications Dropdown Menu -->
-				<li class="nav-item dropdown">
-					<a class="nav-link" data-toggle="dropdown" href="#">
-						<i class="far fa-bell"></i>
-						<span class="badge badge-warning navbar-badge">15</span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<span class="dropdown-item dropdown-header">15 Notifications</span>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="fas fa-envelope mr-2"></i> 4 new messages
-							<span class="float-right text-muted text-sm">3 mins</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="fas fa-users mr-2"></i> 8 friend requests
-							<span class="float-right text-muted text-sm">12 hours</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="fas fa-file mr-2"></i> 3 new reports
-							<span class="float-right text-muted text-sm">2 days</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-					</div>
+				<li class="nav-item d-none d-sm-inline-block">
+					<a class="nav-link">Semoga harimu menyenangkan <b><?=$_SESSION['user']['username_t']?></b>!</a>
 				</li>
 			</ul>
 		</nav>
@@ -98,28 +70,21 @@
 			<a href="<?=base_url()?>admin/" class="brand-link">
 				<span class="brand-text font-weight-light"><?=$web_info['web_name']?></span>
 			</a>
-
 			<!-- Sidebar -->
 			<div class="sidebar">
 				<!-- Sidebar Menu -->
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 						<li class="nav-item">
-							<a href="<?=base_url()?>user/" class="nav-link <?php if($page == "Dashboard User"){ echo"active"; } ?>">
-								<i class="nav-icon fas fa-tachometer-alt"></i>
-								<p>Dashboard</p>
+							<a href="<?=base_url()?>user/reservasi/" class="nav-link <?php if($page == "Daftar Reservasi"){ echo"active"; } ?>">
+								<i class="nav-icon fas fa-book-open"></i>
+								<p>Reservasiku</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="<?=base_url()?>user/kamar" class="nav-link <?php if($page == "Daftar Kamar"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-home"></i>
 								<p>Daftar Kamar</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?=base_url()?>user/reservasi/" class="nav-link <?php if($page == "Daftar Reservasi"){ echo"active"; } ?>">
-								<i class="nav-icon fas fa-book-open"></i>
-								<p>Reservasi</p>
 							</a>
 						</li>
 						<li class="nav-header">Setting</li>
