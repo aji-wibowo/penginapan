@@ -17,6 +17,9 @@ if (isset($_POST['edit_data'])) {
 	}
 	else{
 		if ($connect->query("UPDATE pembayaran SET status = '$payment_status', tgl_bayar = '".date('Y-m-d h:i:s', strtotime($payment_date))."' WHERE kd_bayar = '$kd_bayar'") == true) {
+			if($payment_status == 'lunas'){
+				$connect->query("UPDATE kamar SET status = 1 WHERE kd_kamar = '".$connect->real_escape_string(filter($_POST['kd_kamar']))."'");
+			}
 			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah.');
 		}else{
 			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
@@ -95,7 +98,7 @@ if (isset($_POST['delete_data'])) {
 								<tbody>
 									<?php
 									$no = 1;
-									$check_payments = $connect->query("SELECT * FROM pembayaran a JOIN reservasi b ON a.kd_reservasi=b.kd_reservasi JOIN tamu c ON c.kd_tamu=b.kd_tamu JOIN kamar d ON d.kd_kamar=b.kd_kamar");
+									$check_payments = $connect->query("SELECT * FROM pembayaran a JOIN reservasi b ON a.kd_reservasi=b.kd_reservasi JOIN tamu c ON c.kd_tamu=b.kd_tamu JOIN kamar d ON d.kd_kamar=b.kd_kamar JOIN lokasi l ON d.kd_lokasi=l.kd_lokasi WHERE a.status <> 'lunas' AND l.kd_lokasi='".$_SESSION['admin']['kd_lokasi']."'");
 									while ($data_payments = $check_payments->fetch_assoc()) {
 										?>  
 										<tr>
@@ -158,6 +161,10 @@ if (isset($_POST['delete_data'])) {
 																		<td>Status Pembayaran</td>
 																		<td><?=$data_payments['status']?></td>
 																	</tr>
+																	<tr>
+																		<td>Bukti Pembayaran</td>
+																		<td><?= isset($data_payments['foto_pembayaran']) != '' ? "<a download class='link' href='".base_url()."assets/img/pembayaran/".$data_payments['foto_pembayaran']."'>lihat bukti transfer</a>" : 'belum melakukan pembayaran' ?></td>
+																	</tr>
 																</table>
 															</div>
 															<div class="modal-footer">
@@ -179,6 +186,9 @@ if (isset($_POST['delete_data'])) {
 																</button>
 															</div>
 															<div class="modal-body">
+																<?php if(!empty($data_payments['foto_pembayaran'])){ ?>
+																	<h5>Tamu belum melakukan pembayaran</h5>
+																<?php } ?>
 																<form method="POST">
 																	<div class="form-group">
 																		<label>Status Pembayaran</label>
@@ -197,10 +207,11 @@ if (isset($_POST['delete_data'])) {
 																		</div>
 																	</div>
 																	<input type="text" name="kd_bayar" value="<?=$data_payments['kd_bayar']?>" hidden>
+																	<input type="text" name="kd_kamar" value="<?=$data_payments['kd_kamar']?>" hidden>
 																</div>
 																<div class="modal-footer">
 																	<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times btn-xs"></i> Batal</button>
-																	<button type="submit" name="edit_data" class="btn btn-success"><i class="fas fa-paper-plane btn-xs"></i> Simpan</button>
+																	<button <?= isset($data_payments['foto_pembayaran']) == '' ? 'disabled' : '' ?> type="submit" name="edit_data" class="btn btn-success"><i class="fas fa-paper-plane btn-xs"></i> Simpan</button>
 																</form>
 															</div>
 														</div>
