@@ -14,13 +14,20 @@ if (isset($_POST['edit_data'])) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}else{
 		if(!empty($_FILES['pembayaran_photo'])){
-			echo getExtension($_FILES['pembayaran_photo']);
 			if(getExtension($_FILES['pembayaran_photo']) == 'jpg' || getExtension($_FILES['pembayaran_photo']) == 'png' || getExtension($_FILES['pembayaran_photo']) == 'jpeg' || getExtension($_FILES['pembayaran_photo']) == 'PNG' || getExtension($_FILES['pembayaran_photo']) == 'JPEG' || getExtension($_FILES['pembayaran_photo']) == 'JPG'){
 				$path = '../../../assets/img/pembayaran/';
 				if(uploadFile($_FILES['pembayaran_photo'], $path)){
 					$tgl_transaksi = date('Y-m-d H:i:s');
-					$kode = md5(date('Y-m-d H:i:s'));
-					$kd_bayar = 'BYR/'.$kode;
+					$lastKodeReservasi = getLastReservationCode($connect, "pembayaran");
+					if($lastKodeReservasi['kd_bayar'] != ''){
+						$lastKode = substr($lastKodeReservasi['kd_bayar'], -3);
+					}else{
+						$lastKode = 000;
+					}
+					$newkODE = $lastKode + 1;
+					$newkODE = sprintf("%03d", $newkODE);
+					$kode = date('dmyy') . $newkODE;
+					$kd_bayar = 'BYR'.$kode;
 					if ($connect->query("INSERT INTO pembayaran (kd_bayar, tgl_bayar, kd_reservasi, status, foto_pembayaran) VALUES ('$kd_bayar','$tgl_transaksi', '$kd_reservasi', 'pending','".$_FILES['pembayaran_photo']['name']."')") == true) {
 						$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah.');
 					}else{
@@ -204,10 +211,67 @@ if (isset($_POST['edit_data'])) {
 													<?php
 												}else{
 													?>
-													<button type="button" class="btn btn-warning btn-xs"><i class="fas fa-exclamation"></i> Menunggu Pengecekan</button>
-
-													<?php
-												}
+													<?php 
+													$data = $check_bayar->fetch_assoc();
+													$status = $data['status'];
+													?>
+													<?php if($status == 'pending'){ ?>
+														<button type="button" class="btn btn-warning btn-xs"><i class="fas fa-exclamation"></i> Menunggu Pengecekan</button>
+														<?php
+													}elseif($status == 'lunas'){ ?>
+														<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-cetak-reservasi<?=$no?>"><i class="fas fa-print"></i> Cetak Kartu Reservasi</button>
+														<div class="modal fade" id="modal-cetak-reservasi<?=$no?>">
+															<div class="modal-dialog modal-lg">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h4 class="modal-title">Tiket Reservasi #<?=$data_reservations['kd_reservasi']?></h4>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">
+																		<div class="row">
+																			<div class="col-md-4">
+																				<div class="form-group">
+																					<label>Kode Reservasi</label>
+																					<p><?= $data_reservations['kd_reservasi'] ?></p>
+																				</div>
+																				<div class="form-group">
+																					<label>Atas Nama</label>
+																					<p><?= $data_reservations['nama_t'] ?></p>
+																				</div>
+																			</div>
+																			<div class="col-md-4">
+																				<div class="form-group">
+																					<label>No. KTP</label>
+																					<p><?= $data_reservations['nik'] ?></p>
+																				</div>
+																				<div class="form-group">
+																					<label>Checkin</label>
+																					<p><?= date('d M Y',strtotime($data_reservations['cekin'])) ?></p>
+																				</div>
+																			</div>
+																			<div class="col-md-4">
+																				<div class="form-group">
+																					<label>checkout</label>
+																					<p><?= date('d M Y',strtotime($data_reservations['cekout'])) ?></p>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-12">
+																				<hr>
+																				<p>Data diatas adalah benar tamu dari hotel kami. Screenshot dan tunjukan kepada resepsionis kami saat melakukan checkin dan checkout. Terima kasih, selamat beristirahat.</p>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<!-- /.modal-content -->
+															</div>
+															<!-- /.modal-dialog -->
+														</div>
+													<?php	} ?>
+												<?php }
 												?>
 											</td>
 										</tr>

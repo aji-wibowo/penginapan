@@ -166,7 +166,11 @@ while($row = $dataLokasi->fetch_assoc()){
 							<div class="price">
 								<p>Rp. <?= numberFormat($row['harga_kamar']) ?> / malam</p>
 							</div>
-							<a href="<?=base_url()?>user/kamar/<?= $row['kd_kamar'] ?>" class="btn btn-sm btn-success" style="width: 100%">reservasi</a>
+							<?php if($row['status'] == 0){ ?>
+								<a href="<?=base_url()?>user/kamar/<?= $row['kd_kamar'] ?>" class="btn btn-sm btn-success" style="width: 100%">reservasi</a>
+							<?php }else{ ?>
+								<a href="#" class="btn btn-sm btn-warning" style="width: 100%">Booked</a>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

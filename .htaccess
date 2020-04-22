@@ -23,6 +23,7 @@ RewriteRule    ^user/kamar/(.*?)/?$ user/lib/page_kamar/detail.php?kd_kamar=$1 [
 RewriteRule    ^user/booking/(.*?)/?$ user/lib/page_kamar/booking.php?kd_kamar=$1 [L]
 RewriteRule    ^user/checkout/sukses/?$ user/lib/page_kamar/success.php [NC,L]
 RewriteRule    ^user/reservasi/?$    user/lib/page_reservasi/list.php    [NC,L]   
+RewriteRule    ^user/akun/?$    user/lib/page_akun/index.php    [NC,L]   
 RewriteRule    ^user/login/?$    user/login_user.php    [NC,L]   
 RewriteRule    ^user/register/?$    user/register_user.php    [NC,L] 
 RewriteRule    ^user/logout/?$    user/logout.php    [NC,L] 

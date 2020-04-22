@@ -185,9 +185,12 @@ function numberFormat($number){
 	return number_format($number, 0, '.', ',');
 }
 
-function getLastReservationCode($connect){
-	$rv = $connect->query("SELECT MAX(kd_reservasi) kd_reservasi FROM reservasi")->fetch_assoc();
-
+function getLastReservationCode($connect, $forwhat = "reservasi"){
+	if($forwhat == "reservasi"){
+		$rv = $connect->query("SELECT MAX(kd_reservasi) kd_reservasi FROM reservasi")->fetch_assoc();
+	}else{
+		$rv = $connect->query("SELECT MAX(kd_bayar) kd_bayar FROM pembayaran")->fetch_assoc();
+	}
 	return $rv;
 }
 
