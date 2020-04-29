@@ -115,7 +115,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?=base_url()?>admin/logout" class="nav-link">
+							<a href="#" class="nav-link" data-toggle="modal" data-target="#modal-logout">
 								<i class="nav-icon fas fa-sign-out-alt"></i>
 								<p>Logout</p>
 							</a>
@@ -126,3 +126,24 @@
 			</div>
 			<!-- /.sidebar -->
 		</aside>
+		<div class="modal fade" id="modal-logout">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Konfirmasi</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Apakah anda yakin akan keluar?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal"><i class="fas fa-times btn-xs"></i> Tidak</button>
+						<a href="<?=base_url()?>admin/logout" type="button" class="btn btn-danger" ><i class="fas fa-check btn-xs"></i> Ya, saya yakin</a>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
