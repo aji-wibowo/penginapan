@@ -4,7 +4,7 @@ session_start();
 
 //Load file config
 require '../../../config.php';
-require '../../lib/session_admin.php';
+require '../../lib/session_main_admin.php';
 
 $pdf = new FPDF('P','mm','A4');
 

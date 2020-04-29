@@ -4,7 +4,7 @@ session_start();
 
 //Load file config
 require '../../../config.php';
-require '../../lib/session_admin.php';
+require '../../lib/session_main_admin.php';
 require '../../layout/header_dashboard.php';
 
 if (isset($_POST['edit_data'])) {
@@ -98,7 +98,7 @@ if (isset($_POST['delete_data'])) {
 								<tbody>
 									<?php
 									$no = 1;
-									$check_payments = $connect->query("SELECT * FROM pembayaran a JOIN reservasi b ON a.kd_reservasi=b.kd_reservasi JOIN tamu c ON c.kd_tamu=b.kd_tamu JOIN kamar d ON d.kd_kamar=b.kd_kamar JOIN lokasi l ON d.kd_lokasi=l.kd_lokasi WHERE a.status <> 'lunas' AND l.kd_lokasi='".$_SESSION['admin']['kd_lokasi']."'");
+									$check_payments = $connect->query("SELECT * FROM pembayaran a JOIN reservasi b ON a.kd_reservasi=b.kd_reservasi JOIN tamu c ON c.kd_tamu=b.kd_tamu JOIN kamar d ON d.kd_kamar=b.kd_kamar JOIN lokasi l ON d.kd_lokasi=l.kd_lokasi WHERE a.status <> 'lunas'");
 									while ($data_payments = $check_payments->fetch_assoc()) {
 										?>  
 										<tr>
@@ -107,7 +107,12 @@ if (isset($_POST['delete_data'])) {
 											<td><?=$data_payments['kd_reservasi']?></td>
 											<td><?=$data_payments['nama_t']?></td>
 											<td>Rp.<?=$data_payments['total_bayar']?></td>
-											<td><?=$data_payments['status']?></td>
+											<?php
+											if ($data_payments['status'] == 0) {
+												$sts = "Belum lunas";
+											}
+											?>
+											<td><?=$sts ?></td>
 											<td>
 												<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-info-data<?=$no?>"><i class="fas fa-info-circle"></i></button>
 												<div class="modal fade" id="modal-info-data<?=$no?>">
@@ -159,7 +164,12 @@ if (isset($_POST['delete_data'])) {
 																	</tr>
 																	<tr>
 																		<td>Status Pembayaran</td>
-																		<td><?=$data_payments['status']?></td>
+																		<?php
+																		if ($data_payments['status'] == 0) {
+																			$sts = "Belum lunas";
+																		}
+																		?>
+																		<td><?=$sts ?></td>
 																	</tr>
 																	<tr>
 																		<td>Bukti Pembayaran</td>

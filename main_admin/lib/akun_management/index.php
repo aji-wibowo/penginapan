@@ -4,13 +4,13 @@ session_start();
 
 //Load file config
 require '../../../config.php';
-require '../../lib/session_admin.php';
+require '../../lib/session_main_admin.php';
 require '../../layout/header_dashboard.php';
 
 if(isset($_POST['submit'])){
 	if($_POST['password'] != '' && $_POST['password_baru'] != ''){
 
-		$dataAdmin = $connect->query("select * from admin where kd_admin='".$_SESSION['admin']['kd_admin']."'");
+		$dataAdmin = $connect->query("select * from main_admin where kd_main_admin='".$_SESSION['main_admin']['kd_main_admin']."'");
 
 		if($dataAdmin->num_rows > 0){
 			$fetchedData = $dataAdmin->fetch_assoc();
@@ -19,9 +19,10 @@ if(isset($_POST['submit'])){
 			$password_baru = $connect->real_escape_string(trim(filter($_POST['password_baru'])));
 
 			$verif_pass = password_verify($password, $fetchedData['password']);
-
+			$password_hash = password_hash($password, PASSWORD_DEFAULT);
+			$kd_main_admin = $_SESSION['main_admin']['kd_main_admin'];
 			if($verif_pass == true){
-				if($connect->query("UPDATE admin SET admin.password ='".password_hash($password, PASSWORD_DEFAULT)."' WHERE kd_admin='".$_SESSION['admin']['kd_admin']."'")){
+				if($connect->query("UPDATE main_admin SET password ='$password_hash' WHERE kd_main_admin='$kd_main_admin'")){
 					$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Success', 'message' => 'Perubahan telah disimpan!');
 				}else{
 					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Failur', 'message' => 'Perubahan gagal tersimpan, silahkan coba lagi! Error : '. mysqli_error($connect));
@@ -88,7 +89,7 @@ if(isset($_POST['submit'])){
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Username</label>
-													<input type="text" name="username" class="form-control" value="<?= $_SESSION['admin']['username'] ?>" readonly="true">
+													<input type="text" name="username" class="form-control" value="<?= $_SESSION['main_admin']['username'] ?>" readonly="true">
 												</div>
 												<div class="form-group">
 													<label>Password</label>
@@ -100,11 +101,7 @@ if(isset($_POST['submit'])){
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Domain Kantor</label>
-													<input type="text" name="domain_kantor" class="form-control" readonly="true" value="<?= $_SESSION['admin']['domain_kantor'] ?>">
-												</div>
-												<div class="form-group">
-													<label>Lokasi Kota</label>
-													<input type="text" name="domain_kantor" class="form-control" readonly="true" value="<?= $_SESSION['admin']['kota'] ?>">
+													<input type="text" name="domain_kantor" class="form-control" readonly="true" value="<?= $_SESSION['main_admin']['domain_kantor'] ?>">
 												</div>
 												<div class="form-group float-right">
 													<button type="submit" name="submit" class="btn btn-sm btn-success"><i class="fas fa-paper-plane btn-xs"></i> submit</button>
