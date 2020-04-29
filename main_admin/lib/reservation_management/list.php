@@ -4,7 +4,7 @@ session_start();
 
 //Load file config
 require '../../../config.php';
-require '../../lib/session_admin.php';
+require '../../lib/session_main_admin.php';
 require '../../layout/header_dashboard.php';
 
 ?>
@@ -53,7 +53,7 @@ require '../../layout/header_dashboard.php';
 								<tbody>
 									<?php
 									$no = 1;
-									$check_reservation = $connect->query("SELECT * FROM reservasi a JOIN tamu b ON a.kd_tamu=b.kd_tamu JOIN kamar c ON c.kd_kamar=a.kd_kamar JOIN lokasi d ON c.kd_lokasi=d.kd_lokasi JOIN admin e ON d.kd_lokasi=e.kd_lokasi WHERE e.kd_lokasi='".$_SESSION['admin']['kd_lokasi']."' AND e.kd_admin='".$_SESSION['admin']['kd_admin']."'");
+									$check_reservation = $connect->query("SELECT * FROM reservasi a JOIN tamu b ON a.kd_tamu=b.kd_tamu JOIN kamar c ON c.kd_kamar=a.kd_kamar JOIN lokasi d ON c.kd_lokasi=d.kd_lokasi");
 									while ($data_reservations = $check_reservation->fetch_assoc()) {
 										?>  
 										<tr>
