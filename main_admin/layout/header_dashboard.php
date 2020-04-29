@@ -109,6 +109,12 @@
 						</li>
 						<li class="nav-header">Setting</li>
 						<li class="nav-item">
+							<a href="<?= base_url() ?>main-admin/manage-web/" class="nav-link <?php if($page == "Pengaturan Web"){ echo"active"; } ?>">
+								<i class="nav-icon fas fa-cogs"></i>
+								<p>Pengaturan Web</p>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href="<?= base_url() ?>main-admin/my-account" class="nav-link <?php if($page == "Pengaturan Akun"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-cog"></i>
 								<p>Akun</p>

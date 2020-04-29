@@ -10,21 +10,22 @@ require '../../layout/header_dashboard.php';
 if(isset($_POST['submit'])){
 	if($_POST['password'] != '' && $_POST['password_baru'] != ''){
 
-		$dataAdmin = $connect->query("select * from admin where kd_admin='".$_SESSION['admin']['kd_admin']."'");
+		$kd_admin = $_SESSION['admin']['kd_admin'];
+		$dataAdmin = $connect->query("select * from admin where kd_admin='$kd_admin'");
 
 		if($dataAdmin->num_rows > 0){
 			$fetchedData = $dataAdmin->fetch_assoc();
 
 			$password = $connect->real_escape_string(trim(filter($_POST['password'])));
 			$password_baru = $connect->real_escape_string(trim(filter($_POST['password_baru'])));
-
+			$password_hash = password_hash($password_baru, PASSWORD_DEFAULT);
 			$verif_pass = password_verify($password, $fetchedData['password']);
 
 			if($verif_pass == true){
-				if($connect->query("UPDATE admin SET admin.password ='".password_hash($password, PASSWORD_DEFAULT)."' WHERE kd_admin='".$_SESSION['admin']['kd_admin']."'")){
+				if($connect->query("UPDATE admin SET admin.password ='$password_hash' WHERE kd_admin='$kd_admin'")){
 					$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Success', 'message' => 'Perubahan telah disimpan!');
 				}else{
-					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Failur', 'message' => 'Perubahan gagal tersimpan, silahkan coba lagi! Error : '. mysqli_error($connect));
+					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Failur', 'message' => 'Perubahan gagal tersimpan, silahkan coba lagi! Error : ');
 				}
 			}else{
 				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Bad Credential', 'message' => 'Password kamu salah');

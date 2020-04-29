@@ -52,7 +52,8 @@ RewriteRule    ^main-admin/manage-payments/?$    main_admin/lib/payment_manageme
 RewriteRule    ^main-admin/manage-ratings/?$    main_admin/lib/rating_management/list.php    [NC,L]
 RewriteRule    ^main-admin/manage-report/?$    main_admin/lib/report_management/index.php    [NC,L]
 RewriteRule    ^main-admin/manage-report/cetak    main_admin/lib/report_management/cetak.php    [NC,L]
-RewriteRule    ^main-admin/my-account    main_admin/lib/akun_management/index.php    [NC,L]
+RewriteRule    ^main-admin/manage-web/    main_admin/lib/web_management/index.php    [NC,L]
+RewriteRule    ^main-admin/my-account/    main_admin/lib/akun_management/index.php    [NC,L]
 RewriteRule    ^main-admin/logout/?$    main_admin/logout.php    [NC,L] 
 
 </IfModule>

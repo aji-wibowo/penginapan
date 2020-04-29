@@ -7,35 +7,22 @@ require '../../../config.php';
 require '../../lib/session_main_admin.php';
 require '../../layout/header_dashboard.php';
 
-if(isset($_POST['submit'])){
-	if($_POST['password'] != '' && $_POST['password_baru'] != ''){
+if (isset($_POST['edit_data'])) {
+	$web_name = $connect->real_escape_string(filter($_POST['web_name']));
+	$web_title = $connect->real_escape_string(filter($_POST['web_title']));
+	$web_description = $connect->real_escape_string(filter($_POST['web_description']));
 
-		$kd_main_admin = $_SESSION['main_admin']['kd_main_admin'];
-		$dataAdmin = $connect->query("select * from main_admin where kd_main_admin='$kd_main_admin'");
-
-		if($dataAdmin->num_rows > 0){
-			$fetchedData = $dataAdmin->fetch_assoc();
-
-			$password = $connect->real_escape_string(trim(filter($_POST['password'])));
-			$password_baru = $connect->real_escape_string(trim(filter($_POST['password_baru'])));
-			$password_hash = password_hash($password_baru, PASSWORD_DEFAULT);
-			$verif_pass = password_verify($password, $fetchedData['password']);
-
-			if($verif_pass == true){
-				if($connect->query("UPDATE main_admin SET password ='$password_hash' WHERE kd_main_admin='$kd_main_admin'")){
-					$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Success', 'message' => 'Perubahan telah disimpan!');
-				}else{
-					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Failur', 'message' => 'Perubahan gagal tersimpan, silahkan coba lagi! Error : '. mysqli_error($connect));
-				}
-			}else{
-				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Bad Credential', 'message' => 'Password kamu salah');
-			}
-		}
-
+	if (!$web_name || !$web_title || !$web_description) {
+		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}else{
-		$_SESSION['notification'] = array('alert' => 'info', 'title' => 'No Changes', 'message' => 'Tidak ada perubahan data');
+		if ($connect->query("UPDATE web_settings SET web_name = '$web_name', web_title = '$web_title', web_description = '$web_description' WHERE id = '1'") == true) {
+			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah.');
+		}else{
+			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
+		}
 	}
 }
+
 
 ?>
 
@@ -87,27 +74,35 @@ if(isset($_POST['submit'])){
 									<form class="form" action="" method="post">
 										<div class="row">
 											<div class="col-md-6">
-												<div class="form-group">
-													<label>Username</label>
-													<input type="text" name="username" class="form-control" value="<?= $_SESSION['main_admin']['username'] ?>" readonly="true">
+												<div class="input-group mb-3">
+													<input type="text" name="web_name" class="form-control" placeholder="Nama Web" value="<?=$web_info['web_name']?>">
+													<div class="input-group-append">
+														<div class="input-group-text">
+															<span class="fa fa-globe"></span>
+														</div>
+													</div>
 												</div>
-												<div class="form-group">
-													<label>Password</label>
-													<input type="password" name="password" class="form-control mb-2" placeholder="password saat ini">
-													<input type="password" name="password_baru" class="form-control" placeholder="password baru">
-													<small>isi password baru jika ingin mengganti password</small>
+
+												<div class="input-group mb-3">
+													<input type="text" name="web_title" class="form-control" placeholder="Judul Web" value="<?=$web_info['web_title']?>">
+													<div class="input-group-append">
+														<div class="input-group-text">
+															<span class="fa fa-tag"></span>
+														</div>
+													</div>
 												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label>Domain Kantor</label>
-													<input type="text" name="domain_kantor" class="form-control" readonly="true" value="<?= $_SESSION['main_admin']['domain_kantor'] ?>">
-												</div>
-												<div class="form-group float-right">
-													<button type="submit" name="submit" class="btn btn-sm btn-success"><i class="fas fa-paper-plane btn-xs"></i> submit</button>
+
+												<div class="input-group mb-3">
+													<textarea name="web_description" class="form-control" rows="2" placeholder="Deskripsi Website ..."><?=$web_info['web_description']?></textarea>
+													<div class="input-group-append">
+														<div class="input-group-text">
+															<span class="fas fa-pen-alt"></span>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
+										<button type="submit" name="edit_data" class="btn btn-success"><i class="fas fa-paper-plane btn-xs"></i> Simpan</button>
 									</form>
 								</div>
 							</div>

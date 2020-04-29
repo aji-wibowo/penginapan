@@ -91,7 +91,6 @@ if (isset($_POST['delete_data'])) {
 										<th>Kode Reservasi</th>
 										<th>Nama Tamu</th>
 										<th>Total Bayar</th>
-										<th>Status</th>
 										<th>Aksi</th>
 									</tr>
 								</thead>
@@ -107,12 +106,6 @@ if (isset($_POST['delete_data'])) {
 											<td><?=$data_payments['kd_reservasi']?></td>
 											<td><?=$data_payments['nama_t']?></td>
 											<td>Rp.<?=$data_payments['total_bayar']?></td>
-											<?php
-											if ($data_payments['status'] == 0) {
-												$sts = "Belum lunas";
-											}
-											?>
-											<td><?=$sts ?></td>
 											<td>
 												<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-info-data<?=$no?>"><i class="fas fa-info-circle"></i></button>
 												<div class="modal fade" id="modal-info-data<?=$no?>">
@@ -173,7 +166,10 @@ if (isset($_POST['delete_data'])) {
 																	</tr>
 																	<tr>
 																		<td>Bukti Pembayaran</td>
-																		<td><?= isset($data_payments['foto_pembayaran']) != '' ? "<a download class='link' href='".base_url()."assets/img/pembayaran/".$data_payments['foto_pembayaran']."'>lihat bukti transfer</a>" : 'belum melakukan pembayaran' ?></td>
+																		<?php
+																		var_dump($data_payments['foto_pembayaran']);
+																		?>
+																		<td><?= isset($data_payments['foto_pembayaran']) != 'nothing' ? "<a download class='link' href='".base_url()."assets/img/pembayaran/".$data_payments['foto_pembayaran']."'>lihat bukti transfer</a>" : 'belum melakukan pembayaran' ?></td>
 																	</tr>
 																</table>
 															</div>
@@ -269,7 +265,6 @@ if (isset($_POST['delete_data'])) {
 										<th>Kode Reservasi</th>
 										<th>Nama Tamu</th>
 										<th>Total Bayar</th>
-										<th>Status</th>
 										<th>Aksi</th>
 									</tr>
 								</tfoot>
