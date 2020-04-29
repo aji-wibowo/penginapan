@@ -4,7 +4,7 @@ session_start();
 
 //Load file config
 require '../../../config.php';
-require '../../lib/session_admin.php';
+require '../../lib/session_main_admin.php';
 require '../../layout/header_dashboard.php';
 if (isset($_POST['add_data'])) {
 	$room_name = $connect->real_escape_string(filter($_POST['room_name']));
@@ -215,7 +215,7 @@ if (isset($_POST['delete_data'])) {
 								<tbody>
 									<?php
 									$no = 1;
-									$check_rooms = $connect->query("SELECT * FROM kamar a JOIN lokasi b ON a.kd_lokasi=b.kd_lokasi JOIN admin c ON c.kd_lokasi=b.kd_lokasi WHERE b.kd_lokasi = '".$_SESSION['admin']['kd_lokasi']."'");
+									$check_rooms = $connect->query("SELECT * FROM kamar a JOIN lokasi b ON a.kd_lokasi=b.kd_lokasi JOIN admin c ON c.kd_lokasi=b.kd_lokasi");
 									while ($data_rooms = $check_rooms->fetch_assoc()) {
 										?>  
 										<tr>

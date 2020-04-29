@@ -8,7 +8,7 @@ session_start();
 //Load file config
 require '../config.php';
 
-require 'lib/session_admin.php';
+require 'lib/session_main_admin.php';
 
 //Ambil template header dashboard
 require 'layout/header_dashboard.php';

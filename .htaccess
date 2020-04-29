@@ -17,6 +17,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php
 
+#MODUL_USER
 RewriteRule    ^user/?$    user/lib/page_reservasi/list.php    [NC,L] 
 RewriteRule    ^user/kamar/?$    user/lib/page_kamar/list.php    [NC,L]
 RewriteRule    ^user/kamar/(.*?)/?$ user/lib/page_kamar/detail.php?kd_kamar=$1 [L]
@@ -28,6 +29,7 @@ RewriteRule    ^user/login/?$    user/login_user.php    [NC,L]
 RewriteRule    ^user/register/?$    user/register_user.php    [NC,L] 
 RewriteRule    ^user/logout/?$    user/logout.php    [NC,L] 
 
+#MODUL_ADMIN
 RewriteRule    ^admin/?$    admin/index.php    [NC,L] 
 RewriteRule    ^admin/login/?$    admin/login_admin.php    [NC,L] 
 RewriteRule    ^admin/manage-rooms/?$    admin/lib/room_management/list.php    [NC,L] 
@@ -39,6 +41,19 @@ RewriteRule    ^admin/manage-report/?$    admin/lib/report_management/index.php 
 RewriteRule    ^admin/manage-report/cetak    admin/lib/report_management/cetak.php    [NC,L]
 RewriteRule    ^admin/my-account    admin/lib/akun_management/index.php    [NC,L]
 RewriteRule    ^admin/logout/?$    admin/logout.php    [NC,L] 
+
+#MODUL_MAIN_ADMIN
+RewriteRule    ^main-admin/?$    main_admin/index.php    [NC,L] 
+RewriteRule    ^main-admin/login/?$    main_admin/login_main_admin.php    [NC,L] 
+RewriteRule    ^main-admin/manage-rooms/?$    main_admin/lib/room_management/list.php    [NC,L] 
+RewriteRule    ^main-admin/manage-admins/?$    main_admin/lib/admin_management/list.php    [NC,L] 
+RewriteRule    ^main-admin/manage-reservations/?$    main_admin/lib/reservation_management/list.php    [NC,L] 
+RewriteRule    ^main-admin/manage-payments/?$    main_admin/lib/payment_management/list.php    [NC,L] 
+RewriteRule    ^main-admin/manage-ratings/?$    main_admin/lib/rating_management/list.php    [NC,L]
+RewriteRule    ^main-admin/manage-report/?$    main_admin/lib/report_management/index.php    [NC,L]
+RewriteRule    ^main-admin/manage-report/cetak    main_admin/lib/report_management/cetak.php    [NC,L]
+RewriteRule    ^main-admin/my-account    main_admin/lib/akun_management/index.php    [NC,L]
+RewriteRule    ^main-admin/logout/?$    main_admin/logout.php    [NC,L] 
 
 </IfModule>
 
