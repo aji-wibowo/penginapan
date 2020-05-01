@@ -34,11 +34,45 @@ require '../../layout/header_dashboard.php';
 			<div class="row">
 				<div class="col-12">
 					<div class="card">
-					<div class="card-header">
-						<form action="<?= base_url() ?>admin/manage-report/cetak" method="post">
-						<button type="button" class="btn btn-success" type="submit" name="submit"><i class="fas fa-print btn-xs"></i> Cetak</button>
-						</form>
-					</div>
+						<div class="card-header">
+							<form action="<?= base_url() ?>admin/manage-reservations/cetak" method="post">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Date from:</label>
+
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text">
+														<i class="far fa-calendar-alt"></i>
+													</span>
+												</div>
+												<input type="date" name="dateFrom" class="form-control float-right">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Date to:</label>
+
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text">
+														<i class="far fa-calendar-alt"></i>
+													</span>
+												</div>
+												<input type="date" name="dateTo" class="form-control float-right">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<button class="btn btn-sm btn-success float-right" type="submit" name="submit"><i class="fas fa-print btn-xs"></i> cetak</button>
+									</div>
+								</div>
+							</form>
+						</div>
 						<div class="card-header">
 							<h3 class="card-title"><?=$page?></h3>
 						</div>

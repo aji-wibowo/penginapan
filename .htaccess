@@ -39,6 +39,7 @@ RewriteRule    ^admin/manage-payments/?$    admin/lib/payment_management/list.ph
 RewriteRule    ^admin/manage-ratings/?$    admin/lib/rating_management/list.php    [NC,L]
 RewriteRule    ^admin/manage-report/?$    admin/lib/report_management/index.php    [NC,L]
 RewriteRule    ^admin/manage-report/cetak    admin/lib/report_management/cetak.php    [NC,L]
+RewriteRule    ^admin/manage-reservations/cetak    admin/lib/reservation_management/cetak.php    [NC,L]
 RewriteRule    ^admin/my-account    admin/lib/akun_management/index.php    [NC,L]
 RewriteRule    ^admin/logout/?$    admin/logout.php    [NC,L] 
 
