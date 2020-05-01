@@ -48,7 +48,6 @@ require 'layout/header_dashboard.php';
 						<div class="icon">
 							<i class="fas fa-book-open"></i>
 						</div>
-						<a href="<?= base_url() ?>admin/manage-reservations/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 				<!-- ./col -->
@@ -63,7 +62,6 @@ require 'layout/header_dashboard.php';
 						<div class="icon">
 							<i class="fas fa-hourglass-half"></i>
 						</div>
-						<span class="small-box-footer"><i class="fas fa-arrow-circle-left"></i></span>
 					</div>
 				</div>
 				<!-- ./col -->
@@ -78,7 +76,6 @@ require 'layout/header_dashboard.php';
 						<div class="icon">
 							<i class="fas fa-times-circle"></i>
 						</div>
-						<span class="small-box-footer"><i class="fas fa-arrow-circle-left"></i></span>
 					</div>
 				</div>
 				<!-- ./col -->
@@ -93,7 +90,6 @@ require 'layout/header_dashboard.php';
 						<div class="icon">
 							<i class="fas fa-check-double"></i>
 						</div>
-						<span class="small-box-footer"><i class="fas fa-arrow-circle-left"></i></span>
 					</div>
 				</div>
 				<!-- ./col -->

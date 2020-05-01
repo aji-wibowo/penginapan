@@ -34,6 +34,11 @@ require '../../layout/header_dashboard.php';
 			<div class="row">
 				<div class="col-12">
 					<div class="card">
+					<div class="card-header">
+						<form action="<?= base_url() ?>admin/manage-report/cetak" method="post">
+						<button type="button" class="btn btn-success" type="submit" name="submit"><i class="fas fa-print btn-xs"></i> Cetak</button>
+						</form>
+					</div>
 						<div class="card-header">
 							<h3 class="card-title"><?=$page?></h3>
 						</div>

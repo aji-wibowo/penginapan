@@ -127,16 +127,6 @@ while($row = $dataLokasi->fetch_assoc()){
 										</select>
 									</div>
 								</div>
-								<div class="col-md-3">
-									<div class="form-group">
-										<input type="number" name="rate_from" class="form-control" placeholder="range harga dari" value="<?= isset($rateFrom) ? $rateFrom : '' ?>">
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="form-group">
-										<input type="number" name="rate_to" class="form-control" placeholder="range harga sampai" value="<?= isset($rateTo) ? $rateTo : '' ?>">
-									</div>
-								</div>
 								<div class="col-md-2">
 									<div class="form-group text-center">
 										<input type="submit" name="submit" class="btn btn-sm btn-success">

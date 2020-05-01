@@ -26,7 +26,7 @@ if (isset($_POST['add_data'])) {
 					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
 				}
 			}else{
-				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error! Gagal upload '. $_FILES['room_photo']['error']);
+				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error! Gagal upload '. $_FILES['room_photo']['error'].mysqli_error($connect));
 			}
 		}else{
 			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'file hanya support image dengan format jpg dan png');
