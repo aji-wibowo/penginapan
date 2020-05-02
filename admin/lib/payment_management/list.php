@@ -16,23 +16,11 @@ if (isset($_POST['edit_data'])) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}
 	else{
-		if ($connect->query("UPDATE pembayaran SET status = '$payment_status', tgl_bayar = '".date('Y-m-d h:i:s', strtotime($payment_date))."' WHERE kd_bayar = '$kd_bayar'") == true) {
+		if ($connect->query("UPDATE pembayaran SET status = '$payment_status', tgl_bayar = '".date('Y-m-d', strtotime($payment_date))."' WHERE kd_bayar = '$kd_bayar'") == true) {
 			if($payment_status == 'lunas'){
 				$connect->query("UPDATE kamar SET status = 1 WHERE kd_kamar = '".$connect->real_escape_string(filter($_POST['kd_kamar']))."'");
 			}
 			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah.');
-		}else{
-			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
-		}
-	}
-}
-if (isset($_POST['delete_data'])) {
-	$kd_bayar = $connect->real_escape_string(filter($_POST['kd_bayar']));
-	if (!$kd_bayar) {
-		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
-	}else{
-		if ($connect->query("DELETE FROM pembayaran WHERE kd_bayar = '$kd_bayar'") == true) {
-			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil dihapus.');
 		}else{
 			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
 		}
@@ -199,11 +187,8 @@ if (isset($_POST['delete_data'])) {
 																	</div>
 																	<div class="form-group">
 																		<label>Tanggal Pembayaran</label>
-																		<div class='input-group date' id='datetimepicker1'>
-																			<input class="form-control" type="datetime-local" id="example-datetime-local-input" name="date">
-																			<span class="input-group-addon">
-																				<!-- <span class="fas fa-calendar"></span> -->
-																			</span>
+																		<div class='input-group date'>
+																			<input class="form-control datepicker" name="date">
 																		</div>
 																	</div>
 																	<input type="text" name="kd_bayar" value="<?=$data_payments['kd_bayar']?>" hidden>
@@ -212,32 +197,6 @@ if (isset($_POST['delete_data'])) {
 																<div class="modal-footer">
 																	<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times btn-xs"></i> Batal</button>
 																	<button <?= isset($data_payments['foto_pembayaran']) == '' ? 'disabled' : '' ?> type="submit" name="edit_data" class="btn btn-success"><i class="fas fa-paper-plane btn-xs"></i> Simpan</button>
-																</form>
-															</div>
-														</div>
-														<!-- /.modal-content -->
-													</div>
-													<!-- /.modal-dialog -->
-												</div>
-												<!-- /.modal -->
-												<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-delete-data<?=$no?>"><i class="fas fa-trash"></i></button>
-												<div class="modal fade" id="modal-delete-data<?=$no?>">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h4 class="modal-title">Hapus Data Pembayaran #<?=$no?></h4>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<form method="POST">
-																	<p>Apakah anda yakin akan menghapus data pembayaran #<?=$data_payments['kd_bayar']?>?</p>
-																	<input type="text" name="kd_bayar" value="<?=$data_payments['kd_bayar']?>" hidden>
-																</div>
-																<div class="modal-footer">
-																	<button type="submit" name="delete_data" class="btn btn-danger"><i class="fas fa-paper-plane btn-xs"></i> Yakin, Hapus</button>
-																	<button type="button" class="btn btn-success" data-dismiss="modal"><i class="fas fa-times btn-xs"></i> Batal</button>
 																</form>
 															</div>
 														</div>
@@ -279,7 +238,6 @@ if (isset($_POST['delete_data'])) {
 							<li>Tekan tombol <button type="button" class="btn btn-xs btn-danger"><i class="fas fa-times btn-xs"></i> Batal</button> untuk membatalkan aksi.</li>
 							<li>Tekan tombol <button type="button" class="btn btn-info btn-xs"><i class="fas fa-info-circle"></i></button> untuk melihat detail data.</li>
 							<li>Tekan tombol <button type="button" class="btn btn-warning btn-xs"><i class="fas fa-pen"></i></button> untuk merubah data yang sudah ada.</li>
-							<li>Tekan tombol <button type="button" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></button> untuk menghapus data yang sudah ada.</li>
 						</div>
 						<!-- /.card-body -->
 					</div>

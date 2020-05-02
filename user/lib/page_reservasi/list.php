@@ -42,6 +42,22 @@ if (isset($_POST['edit_data'])) {
 		}
 	}
 }
+if (isset($_POST['rating'])) {
+	$rating_value = $connect->real_escape_string(filter($_POST['rating_value']));
+	$testimoni = $connect->real_escape_string(filter($_POST['testimoni']));
+	$kd_reservasi = $connect->real_escape_string(filter($_POST['kd_reservasi']));
+	$ulas1 = $kd_reservasi.' '.$testimoni;
+
+	if (!$rating_value || !$testimoni || !$kd_reservasi) {
+		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
+	}else{
+		if ($connect->query("INSERT INTO penilaian (nilai, ulasan) VALUES ('$rating_value','$ulas1')") == true) {
+			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil ditambahkan.');
+		}else{
+			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
+		}
+	}
+}
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -219,7 +235,9 @@ if (isset($_POST['edit_data'])) {
 														<button type="button" class="btn btn-warning btn-xs"><i class="fas fa-exclamation"></i> Menunggu Pengecekan</button>
 														<?php
 													}elseif($status == 'lunas'){ ?>
-														<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-cetak-reservasi<?=$no?>"><i class="fas fa-print"></i> Cetak Kartu Reservasi</button>
+														<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal-cetak-reservasi<?=$no?>"><i class="fas fa-eye"></i> Lihat Bukti Reservasi</button>
+
+														<button type="button" class="btn btn-success btn-xs" value='Print' onclick='printDiv("cetakuy<?=$no?>");'><i class="fas fa-print"></i> Cetak Bukti Reservasi</button>
 														<div class="modal fade" id="modal-cetak-reservasi<?=$no?>">
 															<div class="modal-dialog modal-lg">
 																<div class="modal-content">
@@ -229,31 +247,31 @@ if (isset($_POST['edit_data'])) {
 																			<span aria-hidden="true">&times;</span>
 																		</button>
 																	</div>
-																	<div class="modal-body">
+																	<div class="modal-body" id="cetakuy<?=$no?>">
 																		<div class="row">
 																			<div class="col-md-4">
 																				<div class="form-group">
-																					<label>Kode Reservasi</label>
+																					<label><b>Kode Reservasi</b></label>
 																					<p><?= $data_reservations['kd_reservasi'] ?></p>
 																				</div>
 																				<div class="form-group">
-																					<label>Atas Nama</label>
+																					<label><b>Atas Nama</b></label>
 																					<p><?= $data_reservations['nama_t'] ?></p>
 																				</div>
 																			</div>
 																			<div class="col-md-4">
 																				<div class="form-group">
-																					<label>No. KTP</label>
+																					<label><b>No. KTP</b></label>
 																					<p><?= $data_reservations['nik'] ?></p>
 																				</div>
 																				<div class="form-group">
-																					<label>Checkin</label>
+																					<label><b>Checkin</b></label>
 																					<p><?= date('d M Y',strtotime($data_reservations['cekin'])) ?></p>
 																				</div>
 																			</div>
 																			<div class="col-md-4">
 																				<div class="form-group">
-																					<label>checkout</label>
+																					<label><b>Checkout</b></label>
 																					<p><?= date('d M Y',strtotime($data_reservations['cekout'])) ?></p>
 																				</div>
 																			</div>
@@ -271,6 +289,53 @@ if (isset($_POST['edit_data'])) {
 															<!-- /.modal-dialog -->
 														</div>
 													<?php	} ?>
+													<?php if(strtotime($data_reservations['cekout']) < strtotime(date('d-M-Y'))){?>
+														<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-penilaian-reservasi<?=$no?>"><i class="fas fa-star"></i> Penilaian</button>
+
+														<div class="modal fade" id="modal-penilaian-reservasi<?=$no?>">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h4 class="modal-title">Beri Nilai #<?=$data_reservations['kd_reservasi']?></h4>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">
+																		<form method="POST" enctype="multipart/form-data">
+																			<div class="input-group mb-3">
+																				<p>Beri nilai sesuai pengalaman anda menginap, masukan anda sangat berarti bagi kami.</p>
+																			</div>
+																			<div class="input-group mb-3">
+																				<select class="form-control" name="rating_value">
+																					<option value="1" selected="true">Buruk</option>
+																					<option value="2" selected="true">Kurang</option>
+																					<option value="3" selected="true">Cukup</option>
+																					<option value="4" selected="true">Baik</option>
+																					<option value="5" selected="true">Baik Sekali</option>
+																				</select>
+																			</div>
+																			<div class="input-group mb-3">
+																				<textarea name="testimoni" class="form-control" rows="2" placeholder="Ulasan..."></textarea>
+																				<div class="input-group-append">
+																					<div class="input-group-text">
+																						<span class="fas fa-pen-square"></span>
+																					</div>
+																				</div>
+																			</div>
+																			<input type="text" name="kd_reservasi" value="<?=$data_reservations['kd_reservasi']?>" hidden>
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times btn-xs"></i> Batal</button>
+																			<button type="submit" name="rating" class="btn btn-success"><i class="fas fa-paper-plane btn-xs"></i> Simpan</button>
+																		</form>
+																	</div>
+																</div>
+																<!-- /.modal-content -->
+															</div>
+															<!-- /.modal-dialog -->
+														</div>
+													<?php } ?>
 												<?php }
 												?>
 											</td>

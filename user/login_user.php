@@ -84,15 +84,12 @@ if (isset($_SESSION['user'])) {
 				</div>
 				<div class="row">
 					<div class="col-4">
-						<button type="submit" name="login" class="btn btn-primary btn-block">Sign In</button>
+						<button type="submit" name="login" class="btn btn-primary btn-block">Masuk</button>
 					</div>
 					<!-- /.col -->
 				</div>
 			</form>
 			<div class="social-auth-links text-center mb-3">
-				<p class="mb-1">
-					<a href="forgot-password.html">Lupa Password?</a>
-				</p>
 				<p class="mb-0">
 					Belum punya akun? <a href="<?=base_url()?>user/register/">Klik Disini</a>
 				</p>

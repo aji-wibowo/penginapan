@@ -78,6 +78,8 @@ if (isset($_SESSION['main_admin'])) {
 
 	$all = $connect->query("SELECT p.status, r.tgl_transaksi as tgl_transaksi FROM reservasi r JOIN pembayaran p ON r.kd_reservasi=p.kd_reservasi JOIN tamu t ON t.kd_tamu=r.kd_tamu ORDER BY tgl_transaksi desc");
 
+	$q_reservasi = $connect->query("SELECT * FROM reservasi");
+
 	while ($row = $data->fetch_assoc()) {
 		$dataArray[date('F', strtotime($row['tgl_transaksi']))][] = 1;
 	}
@@ -92,14 +94,13 @@ if (isset($_SESSION['main_admin'])) {
 
 
 	while($r = $all->fetch_assoc()){
-		$dataKotak[$r['status']][] = 1;
+		$dataKotak1[$r['status']][] = 1;
 	}
 
-	$dashboard['reservationCount'] = $all->num_rows;
-	$dashboard['belumLunas'] = isset($dataKotak['pending']) ? count($dataKotak['pending']) : 0;
-	$dashboard['expired'] = isset($dataKotak['expired']) ? count($dataKotak['expired']) : 0;
-	$dashboard['lunas'] = isset($dataKotak['lunas']) ? count($dataKotak['lunas']) : 0;
-
+	$dashboard['reservationCount'] = $q_reservasi->num_rows;
+	$dashboard['belumLunas'] = isset($dataKotak1['pending']) ? count($dataKotak1['pending']) : 0;
+	$dashboard['expired'] = isset($dataKotak1['expired']) ? count($dataKotak1['expired']) : 0;
+	$dashboard['lunas'] = isset($dataKotak1['lunas']) ? count($dataKotak1['lunas']) : 0;
 }
 
 // end initialize dashboard admin

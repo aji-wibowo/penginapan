@@ -23,7 +23,7 @@ if (isset($_POST['add_data'])) {
 				if ($connect->query("INSERT INTO kamar (nama_kamar, tipe_kamar, deskripsi_kamar, alamat_kamar, harga_kamar, kd_lokasi, foto_kamar) VALUES ('$room_name','$room_type', '$room_description', '$room_address','$room_price','$kd_lokasi', '".$_FILES['room_photo']['name']."')") == true) {
 					$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil ditambahkan.');
 				}else{
-					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
+					$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
 				}
 			}else{
 				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error! Gagal upload '. $_FILES['room_photo']['error'].mysqli_error($connect));

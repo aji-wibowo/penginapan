@@ -115,7 +115,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?= base_url() ?>main-admin/my-account" class="nav-link <?php if($page == "Pengaturan Akun"){ echo"active"; } ?>">
+							<a href="<?= base_url() ?>main-admin/my-account/" class="nav-link <?php if($page == "Pengaturan Akun"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-cog"></i>
 								<p>Akun</p>
 							</a>

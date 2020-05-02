@@ -53,7 +53,7 @@ require 'layout/header_dashboard.php';
 				<!-- ./col -->
 				<div class="col-lg-3 col-6">
 					<!-- small box -->
-					<div class="small-box bg-success">
+					<div class="small-box bg-warning">
 						<div class="inner">
 							<h3><?= $dashboard['belumLunas'] ?></h3>
 
@@ -67,7 +67,7 @@ require 'layout/header_dashboard.php';
 				<!-- ./col -->
 				<div class="col-lg-3 col-6">
 					<!-- small box -->
-					<div class="small-box bg-warning">
+					<div class="small-box bg-danger">
 						<div class="inner">
 							<h3><?= $dashboard['expired'] ?></h3>
 
@@ -81,7 +81,7 @@ require 'layout/header_dashboard.php';
 				<!-- ./col -->
 				<div class="col-lg-3 col-6">
 					<!-- small box -->
-					<div class="small-box bg-danger">
+					<div class="small-box bg-success">
 						<div class="inner">
 							<h3><?= $dashboard['lunas'] ?></h3>
 
