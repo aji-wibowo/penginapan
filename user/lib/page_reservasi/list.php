@@ -58,6 +58,7 @@ if (isset($_POST['rating'])) {
 		}
 	}
 }
+
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -289,7 +290,19 @@ if (isset($_POST['rating'])) {
 															<!-- /.modal-dialog -->
 														</div>
 													<?php	} ?>
-													<?php if(strtotime($data_reservations['cekout']) < strtotime(date('d-M-Y'))){?>
+													<?php  
+
+													$kode = trim($data_reservations['kd_reservasi']);
+													$getPenilaian = $connect->query("SELECT * FROM penilaian WHERE ulasan like '%".$kode."%'");
+
+													if($getPenilaian->num_rows > 0){
+														$nilained = 1;
+													}else{
+														$nilained = 0;
+													}
+
+													?>
+													<?php if(strtotime($data_reservations['cekout']) < strtotime(date('d-M-Y')) && $status == 'lunas' && $nilained == 0){?>
 														<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-penilaian-reservasi<?=$no?>"><i class="fas fa-star"></i> Penilaian</button>
 
 														<div class="modal fade" id="modal-penilaian-reservasi<?=$no?>">
