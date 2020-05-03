@@ -26,37 +26,54 @@ function initializKamar($connect){
 $stack = initializKamar($connect);
 
 if(isset($_POST['submit'])){
-	$kd_lokasi_post = $_POST['cari_kd_lokasi'];
-	if(empty($kd_lokasi_post)){
+	if(!isset($_POST['cari_kd_lokasi'])){
 		set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Pencarian Error', 'message' => 'Mohon isi lokasi'));
 	}else{
-		if(empty($_POST['rate_from']) && empty($_POST['rate_to'])){
-			unset($stack);
-			$dataKamar = $connect->query("SELECT * FROM kamar k JOIN lokasi l ON k.kd_lokasi=l.kd_lokasi WHERE k.kd_lokasi='".$_POST['cari_kd_lokasi']."'");
-			while($row = $dataKamar->fetch_assoc()){
-				$stack[] = $row;
-			}
-
-			if(count($stack) == 0){
-				$stack = initializKamar();
-				set_flashdata_array('notif', array('alert' => 'info', 'title' => 'Pencarian', 'message' => 'data tidak ada!'));
-			}
-		}else{
-			$rateFrom = $_POST['rate_from'];
-			$rateTo = $_POST['rate_to'];
-			if($rateFrom > $rateTo){
-				set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Pencarian Error', 'message' => 'harga rate from tidak boleh lebih tinggi dari rate to!'));
-			}else{
+		if($_POST['cari_kd_lokasi'] != ''){
+			$cari_kd_lokasi = $_POST['cari_kd_lokasi'];
+			if(empty($_POST['rate_from']) && empty($_POST['rate_to'])){
 				unset($stack);
-				$dataKamar = $connect->query("SELECT * FROM kamar k JOIN lokasi l ON k.kd_lokasi=l.kd_lokasi WHERE k.kd_lokasi='".$_POST['cari_kd_lokasi']."' AND harga_kamar BETWEEN '$rateFrom' AND '$rateTo'");
+				$dataKamar = $connect->query("SELECT * FROM kamar k JOIN lokasi l ON k.kd_lokasi=l.kd_lokasi WHERE k.kd_lokasi='".$_POST['cari_kd_lokasi']."'");
 
-				while($row = $dataKamar->fetch_assoc()){
-					$stack[] = $row;
-				}
+				if($dataKamar->num_rows > 0){
 
-				if(count($stack) == 0){
-					$stack = initializKamar();
+					while($row = $dataKamar->fetch_assoc()){
+						$stack[] = $row;
+					}
+
+					if(count($stack) == 0){
+						$stack = initializKamar($connect);
+						set_flashdata_array('notif', array('alert' => 'info', 'title' => 'Pencarian', 'message' => 'data tidak ada!'));
+					}
+
+				}else{
+					$stack = initializKamar($connect);
 					set_flashdata_array('notif', array('alert' => 'info', 'title' => 'Pencarian', 'message' => 'data tidak ada!'));
+				}
+			}else{
+				$rateFrom = $_POST['rate_from'];
+				$rateTo = $_POST['rate_to'];
+				if($rateFrom > $rateTo){
+					set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Pencarian Error', 'message' => 'harga rate from tidak boleh lebih tinggi dari rate to!'));
+				}else{
+					unset($stack);
+					$dataKamar = $connect->query("SELECT * FROM kamar k JOIN lokasi l ON k.kd_lokasi=l.kd_lokasi WHERE k.kd_lokasi='".$_POST['cari_kd_lokasi']."' AND harga_kamar BETWEEN '$rateFrom' AND '$rateTo'");
+
+					if($dataKamar->num_rows > 0){
+
+						while($row = $dataKamar->fetch_assoc()){
+							$stack[] = $row;
+						}
+
+						if(count($stack) == 0){
+							$stack = initializKamar($connect);
+							set_flashdata_array('notif', array('alert' => 'info', 'title' => 'Pencarian', 'message' => 'data tidak ada!'));
+						}
+
+					}else{
+						$stack = initializKamar($connect);
+						set_flashdata_array('notif', array('alert' => 'info', 'title' => 'Pencarian', 'message' => 'data tidak ada!'));
+					}
 				}
 			}
 		}
@@ -122,7 +139,7 @@ while($row = $dataLokasi->fetch_assoc()){
 										<select class="form-control" name="cari_kd_lokasi">
 											<option value="">-Pilih Lokasi-</option>
 											<?php if(count($stackLokasi) > 0){ foreach($stackLokasi as $l){ ?>
-												<option <?= isset($kd_lokasi_post) ? 'selected' : '' ?> value="<?= $l['kd_lokasi'] ?>"><?= $l['kota'] ?></option>
+												<option <?= isset($cari_kd_lokasi) ? $l['kd_lokasi'] == $cari_kd_lokasi ? 'selected' : '' : '' ?> value="<?= $l['kd_lokasi'] ?>"><?= $l['kota'] ?></option>
 											<?php } }?>
 										</select>
 									</div>

@@ -50,7 +50,7 @@ require '../../layout/header_dashboard.php';
 										<?php
 									}
 									?>
-									<form action="<?= base_url() ?>admin/manage-report/cetak" method="post">
+									<form action="<?= base_url() ?>main-admin/manage-report/cetak" method="post">
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
