@@ -31,6 +31,8 @@ if(!$connect) {
 	die("Koneksi Gagal : ".mysqli_connect_error());
 }
 
+$connect->query("UPDATE kamar k SET k.status = 0 WHERE k.status = 1 AND DATE((select cekout from reservasi r where r.kd_kamar=k.kd_kamar limit 1)) <= NOW()");
+
 //Setting timezone dan waktu
 date_default_timezone_set('Asia/Jakarta');
 $date = date("Y-m-d");
