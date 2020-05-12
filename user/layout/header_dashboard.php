@@ -67,7 +67,7 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="<?=base_url()?>admin/" class="brand-link">
+			<a href="<?=base_url()?>user/" class="brand-link">
 				<span class="brand-text font-weight-light"><?=$web_info['web_name']?></span>
 			</a>
 			<!-- Sidebar -->

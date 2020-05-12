@@ -1,5 +1,5 @@
 <?php
-$page = "Pengaturan Akun";
+$page = "Pengaturan Web";
 session_start();
 
 //Load file config
