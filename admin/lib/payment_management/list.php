@@ -12,7 +12,8 @@ if (isset($_POST['edit_data'])) {
 	$payment_date = $connect->real_escape_string(filter($_POST['date']));
 	$kd_bayar = $connect->real_escape_string(filter($_POST['kd_bayar']));
 
-	if (!$payment_status || !$$payment_date || !$kd_bayar) {
+	if (empty($payment_status) || empty($payment_date) || empty($kd_bayar)) {
+		echo $payment_status;
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}
 	else{
@@ -86,7 +87,7 @@ if (isset($_POST['edit_data'])) {
 								<tbody>
 									<?php
 									$no = 1;
-									$check_payments = $connect->query("SELECT * FROM pembayaran a JOIN reservasi b ON a.kd_reservasi=b.kd_reservasi JOIN tamu c ON c.kd_tamu=b.kd_tamu JOIN kamar d ON d.kd_kamar=b.kd_kamar JOIN lokasi l ON d.kd_lokasi=l.kd_lokasi WHERE a.status <> 'lunas' AND l.kd_lokasi='".$_SESSION['admin']['kd_lokasi']."'");
+									$check_payments = $connect->query("SELECT a.kd_bayar, b.kd_reservasi, c.nama_t, b.total_bayar, a.status, c.nik, c.no_tlp, d.nama_kamar, d.tipe_kamar, d.alamat_kamar, b.cekin, b.cekout, a.foto_pembayaran, d.kd_kamar  FROM pembayaran a JOIN reservasi b ON a.kd_reservasi=b.kd_reservasi JOIN tamu c ON c.kd_tamu=b.kd_tamu JOIN kamar d ON d.kd_kamar=b.kd_kamar JOIN lokasi l ON d.kd_lokasi=l.kd_lokasi WHERE l.kd_lokasi='".$_SESSION['admin']['kd_lokasi']."'");
 									while ($data_payments = $check_payments->fetch_assoc()) {
 										?>  
 										<tr>

@@ -23,6 +23,17 @@ function BasicTable($data, $pdf, $field, $lokasi, $admin)
 		$pdf->Cell(40,7,'Nama');
 		$pdf->Cell(50,7,': '.$admin[$keyLokasi]);
 		$pdf->ln();
+		foreach ($field as $value) {
+			if($value != 'NamaAdmin' && $value != 'KodeLokasi'){
+				if($value == 'AsalKantor'){
+					$pdf->Cell(110,7,'Asal Kantor',1);
+				}else{
+					$pdf->Cell(38,7,$value,1);
+				}
+			}
+		}
+
+		$pdf->Ln();
 		$sum = 0;
 		foreach ($data[$keyLokasi] as $key => $row) {
 			foreach ($field as $f) {
