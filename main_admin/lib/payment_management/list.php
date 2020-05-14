@@ -66,7 +66,7 @@ require '../../layout/header_dashboard.php';
 								<tbody>
 									<?php
 									$no = 1;
-									$check_payments = $connect->query("SELECT * FROM pembayaran a JOIN reservasi b ON a.kd_reservasi=b.kd_reservasi JOIN tamu c ON c.kd_tamu=b.kd_tamu JOIN kamar d ON d.kd_kamar=b.kd_kamar JOIN lokasi l ON d.kd_lokasi=l.kd_lokasi WHERE a.status <> 'lunas'");
+									$check_payments = $connect->query("SELECT a.kd_bayar, b.kd_reservasi, c.nama_t, b.total_bayar, a.status, c.nik, c.no_tlp, d.nama_kamar, d.tipe_kamar, d.alamat_kamar, b.cekin, b.cekout, a.foto_pembayaran, d.kd_kamar  FROM pembayaran a JOIN reservasi b ON a.kd_reservasi=b.kd_reservasi JOIN tamu c ON c.kd_tamu=b.kd_tamu JOIN kamar d ON d.kd_kamar=b.kd_kamar JOIN lokasi l ON d.kd_lokasi=l.kd_lokasi");
 									while ($data_payments = $check_payments->fetch_assoc()) {
 										?>  
 										<tr>
@@ -135,9 +135,6 @@ require '../../layout/header_dashboard.php';
 																	</tr>
 																	<tr>
 																		<td>Bukti Pembayaran</td>
-																		<?php
-																		var_dump($data_payments['foto_pembayaran']);
-																		?>
 																		<td><?= isset($data_payments['foto_pembayaran']) != 'nothing' ? "<a download class='link' href='".base_url()."assets/img/pembayaran/".$data_payments['foto_pembayaran']."'>lihat bukti transfer</a>" : 'belum melakukan pembayaran' ?></td>
 																	</tr>
 																</table>

@@ -32,32 +32,36 @@ if($submit != ''){
 	if($cekin == '' && $cekot == ''){
 		set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap isi form dengan benar.'));
 	}else{
-		if(strtotime($cekin) > strtotime($cekot)){
-			set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi tanggal check out.'));
-		}else{
-			$lastKodeReservasi = getLastReservationCode($connect);
-			$lastKode = substr($lastKodeReservasi['kd_reservasi'], -3);
-			$newkODE = $lastKode + 1;
-			$newkODE = sprintf("%03d", $newkODE);
-			$kd_reservasi = 'RV'.date('dmy').$newkODE;
-			$kd_kamar = $kd_kamar;
-			$kd_tamu = $_SESSION['user']['kd_tamu'];
-			$cekin = date('Y-m-d', strtotime($cekin));
-			$cekot = date('Y-m-d', strtotime($cekot));
-			$tgl_transaksi = date('Y-m-d H:i:s');
-			$diff = strtotime($cekot) - strtotime($cekin);
-			$totalBayar = round($diff / (60 * 60 * 24)) * $detail['harga_kamar'];
-
-			$admin = $connect->query("SELECT * FROM admin WHERE kd_lokasi='".$detail['kd_lokasi']."'")->fetch_assoc();
-
-			$kd_admin = $admin['kd_admin'];
-
-			if($connect->query("INSERT INTO reservasi VALUES('$kd_reservasi', '$kd_tamu', '$kd_kamar', '$cekin', '$cekot', '$tgl_transaksi', '$totalBayar', '$kd_admin')")){
-				set_flashdata_array('notif', array('alert' => 'success', 'title' => 'Berhasil Reservasi', 'message' => 'Silahkan lakukan bukti pembayaran!'));
-				echo "<script>window.location.href='".base_url()."user/checkout/sukses'</script>";
+		if(strtotime($cekin) > strtotime('now') || strtotime($cekot) > strtotime('now')){
+			if(strtotime($cekin) > strtotime($cekot)){
+				set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi tanggal dengan benar.'));
 			}else{
-				set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Something Wrong', 'message' => 'Silahkan coba sekali lagi!'.mysqli_error($connect)));
+				$lastKodeReservasi = getLastReservationCode($connect);
+				$lastKode = substr($lastKodeReservasi['kd_reservasi'], -3);
+				$newkODE = $lastKode + 1;
+				$newkODE = sprintf("%03d", $newkODE);
+				$kd_reservasi = 'RV'.date('dmy').$newkODE;
+				$kd_kamar = $kd_kamar;
+				$kd_tamu = $_SESSION['user']['kd_tamu'];
+				$cekin = date('Y-m-d', strtotime($cekin));
+				$cekot = date('Y-m-d', strtotime($cekot));
+				$tgl_transaksi = date('Y-m-d H:i:s');
+				$diff = strtotime($cekot) - strtotime($cekin);
+				$totalBayar = round($diff / (60 * 60 * 24)) * $detail['harga_kamar'];
+
+				$admin = $connect->query("SELECT * FROM admin WHERE kd_lokasi='".$detail['kd_lokasi']."'")->fetch_assoc();
+
+				$kd_admin = $admin['kd_admin'];
+
+				if($connect->query("INSERT INTO reservasi VALUES('$kd_reservasi', '$kd_tamu', '$kd_kamar', '$cekin', '$cekot', '$tgl_transaksi', '$totalBayar', '$kd_admin')")){
+					set_flashdata_array('notif', array('alert' => 'success', 'title' => 'Berhasil Reservasi', 'message' => 'Silahkan lakukan bukti pembayaran!'));
+					echo "<script>window.location.href='".base_url()."user/checkout/sukses'</script>";
+				}else{
+					set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Something Wrong', 'message' => 'Silahkan coba sekali lagi!'.mysqli_error($connect)));
+				}
 			}
+		}else{
+			set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi tanggal dengan benar.'));
 		}
 	}
 }
