@@ -30,10 +30,10 @@ if($submit != ''){
 	$cekot = $_POST['checkout'];
 
 	if($cekin == '' && $cekot == ''){
-		set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Something Wrong', 'message' => 'Isi form dengan benar!'));
+		set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap isi form dengan benar.'));
 	}else{
 		if(strtotime($cekin) > strtotime($cekot)){
-			set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Something Wrong', 'message' => 'Tanggal checkin tidak boleh lebih dari checkout!'));
+			set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi tanggal check out.'));
 		}else{
 			$lastKodeReservasi = getLastReservationCode($connect);
 			$lastKode = substr($lastKodeReservasi['kd_reservasi'], -3);

@@ -29,7 +29,7 @@ if (isset($_POST['edit_data'])) {
 					$kode = date('dmyy') . $newkODE;
 					$kd_bayar = 'BYR'.$kode;
 					if ($connect->query("INSERT INTO pembayaran (kd_bayar, tgl_bayar, kd_reservasi, status, foto_pembayaran) VALUES ('$kd_bayar','$tgl_transaksi', '$kd_reservasi', 'pending','".$_FILES['pembayaran_photo']['name']."')") == true) {
-						$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil diubah.');
+						$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Bukti bayar berhasil diupload. harap tunggu perubahan status reservasi.');
 					}else{
 						$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!'.mysqli_error($connect));
 					}

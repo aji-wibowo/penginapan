@@ -29,24 +29,30 @@ if($data->num_rows == 0){
 }
 
 if(isset($_POST['submit'])){
-	$nama = $connect->real_escape_string(filter($_POST['nama']));
+	//$nama = $connect->real_escape_string(filter($_POST['nama']));
 	$alamat = $connect->real_escape_string(filter($_POST['alamat']));
 	$asal_kantor = $connect->real_escape_string(filter($_POST['asal_kantor']));
 	$no_telp = $connect->real_escape_string(filter($_POST['no_telp']));
+	$email = $connect->real_escape_string(filter($_POST['email']));
 	$current_password = $connect->real_escape_string(filter($_POST['password']));
 	$password_baru = $connect->real_escape_string(filter($_POST['password_baru']));
 
-	if(!empty($current_password)){
+	if(!empty($current_password) | !empty($password_baru)){
 		if(password_verify($current_password, $row['password_t'])){
-			$update = $connect->query("UPDATE tamu SET nama_t='$nama', alamat='$alamat', asal_kantor='$asal_kantor', no_tlp='$no_telp', password_t='".password_hash($password_baru, PASSWORD_DEFAULT)."' WHERE kd_tamu='".$_SESSION['user']['kd_tamu']."'");
+			//Jika jumlah karakter password kurang dari 6 maka proses daftar gagal
+			if (strlen($password_baru) < 6) {
+				$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Password minimal berjumlah 6 karakter.');
+			}else{	
+				$update = $connect->query("UPDATE tamu SET email_t='$email', alamat='$alamat', asal_kantor='$asal_kantor', no_tlp='$no_telp', password_t='".password_hash($password_baru, PASSWORD_DEFAULT)."' WHERE kd_tamu='".$_SESSION['user']['kd_tamu']."'");
+			}
 		}else{
 			set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Password anda salah!'));
 		}
 	}else{
-		$update = $connect->query("UPDATE tamu SET nama_t='$nama', alamat='$alamat', asal_kantor='$asal_kantor', no_tlp='$no_telp' WHERE kd_tamu='".$_SESSION['user']['kd_tamu']."'");
+		$update = $connect->query("UPDATE tamu SET email_t='$email', alamat='$alamat', asal_kantor='$asal_kantor', no_tlp='$no_telp' WHERE kd_tamu='".$_SESSION['user']['kd_tamu']."'");
 	}
 
-	if($update){
+	if(isset($update)){
 		set_flashdata_array('notif', array('alert' => 'success', 'title' => 'Berhasil', 'message' => 'Data telah diperbarui!'));
 	}else{
 		set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Data telah gagal diperbarui!'. mysqli_error($connect)));
@@ -104,7 +110,7 @@ if(isset($_POST['submit'])){
 										</div>
 										<div class="form-group">
 											<label>Nama</label>
-											<input type="text" name="nama" class="form-control" value="<?= $row['nama_t'] ?>">
+											<input type="text" name="nama" class="form-control" value="<?= $row['nama_t'] ?>" disabled>
 										</div>
 										<div class="form-group">
 											<label>Alamat</label>
@@ -122,7 +128,7 @@ if(isset($_POST['submit'])){
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Email</label>
-											<input type="email" name="email" class="form-control" value="<?= $row['email_t'] ?>" disabled>
+											<input type="email" name="email" class="form-control" value="<?= $row['email_t'] ?>">
 										</div>
 										<div class="form-group">
 											<label>Username</label>
@@ -137,7 +143,7 @@ if(isset($_POST['submit'])){
 											<input type="password" name="password_baru" class="form-control">
 										</div>
 										<div class="form-group text-right">
-											<input type="submit" name="submit" class="btn btn-sm btn-success">
+											<button type="submit" name="submit" class="btn btn-sm btn-success"><i class="fas fa-edit btn-xs"></i> Ubah Data</button>
 										</div>
 									</div>
 								</div>

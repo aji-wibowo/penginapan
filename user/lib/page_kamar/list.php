@@ -146,7 +146,7 @@ while($row = $dataLokasi->fetch_assoc()){
 								</div>
 								<div class="col-md-2">
 									<div class="form-group text-center">
-										<input type="submit" name="submit" class="btn btn-sm btn-success">
+										<button type="submit" name="submit" class="btn btn-sm btn-success"><i class="fas fa-search btn-xs"></i> Cari</button>
 									</div>
 								</div>
 							</div>
@@ -169,12 +169,35 @@ while($row = $dataLokasi->fetch_assoc()){
 							<div class="description">
 								<p><b>Lokasi</b> : <?= $row['kota'] ?></p>
 								<p><b>Tipe Kamar</b> : <?= $row['tipe_kamar'] ?></p>
+								<p><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-detail-kamar-<?= $row['kd_kamar'] ?>"><i class="fas fa-info-circle"></i> Detail Kamar</button></p>
+								<div class="modal fade" id="modal-detail-kamar-<?= $row['kd_kamar'] ?>">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">Detail kamar <b><?= $row['nama_kamar'] ?></b></h4>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												
+												<textarea style="width:100%;color:#000;" rows="8" disabled><?= $row['deskripsi_kamar'] ?></textarea>
+												
+											</div>
+											<div class="modal-footer">
+												<button type="button" data-dismiss="modal" class="btn btn-success"><i class="fas fa-check btn-xs"></i> Ok</button>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>
 							</div>
 							<div class="price">
 								<p>Rp. <?= numberFormat($row['harga_kamar']) ?> / malam</p>
 							</div>
 							<?php if($row['status'] == 0){ ?>
-								<a href="<?=base_url()?>user/kamar/<?= $row['kd_kamar'] ?>" class="btn btn-sm btn-success" style="width: 100%">reservasi</a>
+								<a href="<?=base_url()?>user/kamar/<?= $row['kd_kamar'] ?>" class="btn btn-sm btn-success" style="width: 100%">Reservasi</a>
 							<?php }else{ ?>
 								<a href="#" class="btn btn-sm btn-warning" style="width: 100%">Booked</a>
 							<?php } ?>

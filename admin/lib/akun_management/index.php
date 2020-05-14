@@ -88,8 +88,8 @@ if(isset($_POST['submit'])){
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label>Username</label>
-													<input type="text" name="username" class="form-control" value="<?= $_SESSION['admin']['username'] ?>" readonly="true">
+													<label>Email</label>
+													<input type="text" name="email" class="form-control" value="<?= $_SESSION['admin']['email'] ?>" readonly="true">
 												</div>
 												<div class="form-group">
 													<label>Password</label>
@@ -100,15 +100,11 @@ if(isset($_POST['submit'])){
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label>Domain Kantor</label>
-													<input type="text" name="domain_kantor" class="form-control" readonly="true" value="<?= $_SESSION['admin']['domain_kantor'] ?>">
-												</div>
-												<div class="form-group">
 													<label>Lokasi Kota</label>
 													<input type="text" name="domain_kantor" class="form-control" readonly="true" value="<?= $_SESSION['admin']['kota'] ?>">
 												</div>
 												<div class="form-group float-right">
-													<button type="submit" name="submit" class="btn btn-sm btn-success"><i class="fas fa-paper-plane btn-xs"></i> submit</button>
+													<button type="submit" name="submit" class="btn btn-sm btn-success"><i class="fas fa-edit btn-xs"></i> Ubah Data</button>
 												</div>
 											</div>
 										</div>
@@ -124,7 +120,7 @@ if(isset($_POST['submit'])){
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-							<li>Tekan tombol <button type="button" class="btn btn-sm btn-success"><i class="fas fa-paper-plane btn-xs"></i> submit</button> untuk menyimpan data.</li>
+							<li>Tekan tombol <button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit btn-xs"></i> Ubah Data</button> untuk menyimpan data.</li>
 							<li>Isi password dan password baru untuk merubah password anda.</li>
 						</div>
 						<!-- /.card-body -->

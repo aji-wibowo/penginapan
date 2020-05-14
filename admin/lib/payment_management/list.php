@@ -12,7 +12,7 @@ if (isset($_POST['edit_data'])) {
 	$payment_date = $connect->real_escape_string(filter($_POST['date']));
 	$kd_bayar = $connect->real_escape_string(filter($_POST['kd_bayar']));
 
-	if (!$payment_status || !$kd_bayar) {
+	if (!$payment_status || !$$payment_date || !$kd_bayar) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}
 	else{

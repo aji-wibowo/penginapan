@@ -133,6 +133,7 @@ require '../../layout/header_dashboard.php';
 										<th>Tipe Kamar</th>
 										<th>Harga Kamar</th>
 										<th>Kode Lokasi</th>
+										<th>Foto</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -147,6 +148,37 @@ require '../../layout/header_dashboard.php';
 											<td><?=$data_rooms['tipe_kamar']?></td>
 											<td><?=$data_rooms['harga_kamar']?></td>
 											<td><?=$data_rooms['kd_lokasi']." / ".$data_rooms['kota']?></td>
+											<td>
+												<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-lihat-foto<?=$no?>"><i class="fas fa-images"></i></button>
+												<div class="modal fade" id="modal-lihat-foto<?=$no?>">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h4 class="modal-title">Foto Kamar <b><?=$data_rooms['nama_kamar']?></b></h4>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<div class="col-md-10">
+																	<div class="img-responsive">
+																		<div class="card" style="padding: 5px;">
+																			<div class="card-body">
+																				<img src="<?= base_url() ?>assets/img/kamar/<?= $data_rooms['foto_kamar'] ?>" style="width: 100%;">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-success" data-dismiss="modal"><i class="fas fa-check btn-xs"></i> Ok</button>
+															</div>
+														</div>
+														<!-- /.modal-content -->
+													</div>
+													<!-- /.modal-dialog -->
+												</div>
+											</td>
 										</tr>
 										<?php 
 										$no++;
@@ -159,28 +191,13 @@ require '../../layout/header_dashboard.php';
 										<th>Tipe Kamar</th>
 										<th>Harga Kamar</th>
 										<th>Kode Lokasi</th>
+										<th>Foto</th>
 									</tr>
 								</tfoot>
 							</table>
 						</div>
 						<!-- /.card-body -->
 					</div>
-					<!-- /.card -->
-					<div class="card">
-						<div class="card-header">
-							<h3 class="card-title">Informasi</h3>
-						</div>
-						<!-- /.card-header -->
-						<div class="card-body">
-							<li>Tekan tombol <button type="button" class="btn btn-xs btn-primary"><i class="fas fa-plus btn-xs"></i> Tambah Data</button> untuk menambahkan data baru.</li>
-							<li>Tekan tombol <button type="button" class="btn btn-xs btn-success"><i class="fas fa-paper-plane btn-xs"></i> Simpan</button> untuk menyimpan data.</li>
-							<li>Tekan tombol <button type="button" class="btn btn-xs btn-danger"><i class="fas fa-times btn-xs"></i> Batal</button> untuk membatalkan aksi.</li>
-							<li>Tekan tombol <button type="button" class="btn btn-warning btn-xs"><i class="fas fa-pen"></i></button> untuk merubah data yang sudah ada.</li>
-							<li>Tekan tombol <button type="button" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></button> untuk menghapus data yang sudah ada.</li>
-						</div>
-						<!-- /.card-body -->
-					</div>
-					<!-- /.card -->
 				</div>
 			</div>
 		</div>

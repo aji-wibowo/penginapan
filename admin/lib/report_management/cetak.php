@@ -85,23 +85,23 @@ if(isset($_POST['submit'])){
 			BasicTable($dataIsi, $pdf, $field, $namaAdmin, $lokasi);
 			$pdf->Output('report.pdf', 'i');
 		}else{
-			header("Location: ".base_url()."admin/manage-reservations");
+			header("Location: ".base_url()."admin/manage-report");
 			set_flashdata('message', 'data tidak ditemukan!');
 			die();
 		}
 
 	}else{
-		header("Location: ".base_url()."admin/manage-reservations");
+		header("Location: ".base_url()."admin/manage-report");
 		set_flashdata('message', 'pilih tanggal dengan benar! date from harus lebih kecil dari date to!');
 		die();
 	}
 }else{
-	header("Location: ".base_url()."admin/manage-reservations");
+	header("Location: ".base_url()."admin/manage-report");
 	set_flashdata('message', 'pilih tanggal dengan benar!');
 	die();
 }
 // }else{
-// 	header("Location: ".base_url()."admin/manage-reservations");
+// 	header("Location: ".base_url()."admin/manage-report");
 // 	set_flashdata('message', 'something wrong! silahkan coba lagi!');
 // 	die();
 // }
