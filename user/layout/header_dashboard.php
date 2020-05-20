@@ -91,7 +91,7 @@
 						<li class="nav-item">
 							<a href="<?= base_url() ?>user/akun" class="nav-link <?php if($page == "Menu Akun"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-cog"></i>
-								<p>Akun</p>
+								<p>Pengaturan Akun</p>
 							</a>
 						</li>
 						<li class="nav-item">

@@ -77,12 +77,12 @@
 								<p>Kamar</p>
 							</a>
 						</li>
-						<li class="nav-item">
+						<!-- <li class="nav-item">
 							<a href="<?=base_url()?>main-admin/manage-admins/" class="nav-link <?php if($page == "Daftar Admin"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-users"></i>
 								<p>Admin</p>
 							</a>
-						</li>
+						</li> -->
 						<li class="nav-item">
 							<a href="<?=base_url()?>main-admin/manage-reservations/" class="nav-link <?php if($page == "Daftar Reservasi"){ echo"active"; } ?>">
 								<i class="nav-icon fas fa-book-open"></i>

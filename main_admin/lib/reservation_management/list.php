@@ -35,6 +35,16 @@ require '../../layout/header_dashboard.php';
 				<div class="col-12">
 					<div class="card">
 						<div class="card-header">
+							<?php
+							if (check_flashdata('message') != '') {
+								?>
+								<div class="alert alert-danger">
+									<h5>Error!</h5>
+									<?=get_flashdata('message')?>
+								</div>
+								<?php
+							}
+							?>
 							<form action="<?= base_url() ?>main-admin/manage-reservations/cetak" method="post">
 								<div class="row">
 									<div class="col-md-6">
