@@ -164,7 +164,9 @@ if (isset($_POST['edit_data'])) {
 													</div>
 													<!-- /.modal-dialog -->
 												</div>
-												<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-edit-data<?=$no?>"><i class="fas fa-pen"></i></button>
+												<?php if($data_payments['status'] != 'lunas'){ ?>
+													<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-edit-data<?=$no?>"><i class="fas fa-pen"></i></button>
+												<?php } ?>
 												<div class="modal fade" id="modal-edit-data<?=$no?>">
 													<div class="modal-dialog">
 														<div class="modal-content">

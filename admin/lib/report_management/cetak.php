@@ -25,9 +25,17 @@ function BasicTable($data, $pdf, $field, $namaAdmin, $lokasi)
 	foreach ($field as $value) {
 		if($value != 'NamaAdmin' && $value != 'KodeLokasi'){
 			if($value == 'AsalKantor'){
-				$pdf->Cell(110,7,$value,1);
-			} else {
-				$pdf->Cell(38,7,$value,1);
+				$pdf->Cell(110,7,'Asal Kantor',1, 0, 'C');
+			}elseif($value == 'KodePesan'){
+				$pdf->Cell(38,7,'Kode Pesan',1, 0, 'C');
+			}elseif($value == 'NamaTamu'){
+				$pdf->Cell(38,7,'Nama Tamu',1, 0, 'C');
+			}elseif($value == 'TanggalBayar'){
+				$pdf->Cell(38,7,'Tanggal Bayar',1, 0, 'C');
+			}elseif($value == 'TotalBayar'){
+				$pdf->Cell(38,7,'Total Bayar',1, 0, 'C');
+			}else{
+				$pdf->Cell(38,7,$value,1, 0, 'C');
 			}
 		}
 	}

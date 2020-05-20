@@ -29,9 +29,17 @@ if($submit != ''){
 	$cekin = $_POST['checkin'];
 	$cekot = $_POST['checkout'];
 
-	if($cekin == '' && $cekot == ''){
+	if($cekot == ''){
 		set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap isi form dengan benar.'));
 	}else{
+		if($cekin != ''){
+			$cekin = $cekin;
+		}else{
+			$cekin = date('d-m-Y');
+		}
+
+		echo $cekin;
+
 		if(strtotime($cekin) > strtotime('now') || strtotime($cekot) > strtotime('now')){
 			if(strtotime($cekin) > strtotime($cekot)){
 				set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi tanggal dengan benar.'));
@@ -40,7 +48,7 @@ if($submit != ''){
 				$lastKode = substr($lastKodeReservasi['kd_reservasi'], -3);
 				$newkODE = $lastKode + 1;
 				$newkODE = sprintf("%03d", $newkODE);
-				$kd_reservasi = 'RV'.date('dmy').$newkODE;
+				$kd_reservasi = 'RV'.date('ymd').$newkODE;
 				$kd_kamar = $kd_kamar;
 				$kd_tamu = $_SESSION['user']['kd_tamu'];
 				$cekin = date('Y-m-d', strtotime($cekin));

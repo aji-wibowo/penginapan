@@ -26,7 +26,7 @@ if (isset($_POST['edit_data'])) {
 					}
 					$newkODE = $lastKode + 1;
 					$newkODE = sprintf("%03d", $newkODE);
-					$kode = date('dmyy') . $newkODE;
+					$kode = date('ymd') . $newkODE;
 					$kd_bayar = 'BYR'.$kode;
 					if ($connect->query("INSERT INTO pembayaran (kd_bayar, tgl_bayar, kd_reservasi, status, foto_pembayaran) VALUES ('$kd_bayar','$tgl_transaksi', '$kd_reservasi', 'pending','".$_FILES['pembayaran_photo']['name']."')") == true) {
 						$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Bukti bayar berhasil diupload. harap tunggu perubahan status reservasi.');

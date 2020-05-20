@@ -1,6 +1,6 @@
 <?php
 
-$page = "Daftar Laporan";
+$page = "Cetak Laporan";
 
 session_start();
 
