@@ -29,17 +29,9 @@ if($submit != ''){
 	$cekin = $_POST['checkin'];
 	$cekot = $_POST['checkout'];
 
-	if($cekot == ''){
+	if($cekot == '' || $cekin == ''){
 		set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap isi form dengan benar.'));
 	}else{
-		if($cekin != ''){
-			$cekin = $cekin;
-		}else{
-			$cekin = date('d-m-Y');
-		}
-
-		echo $cekin;
-
 		if(strtotime($cekin) > strtotime('now') || strtotime($cekot) > strtotime('now')){
 			if(strtotime($cekin) > strtotime($cekot)){
 				set_flashdata_array('notif', array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi tanggal dengan benar.'));

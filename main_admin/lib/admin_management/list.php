@@ -12,6 +12,7 @@ if (isset($_POST['add_data'])) {
 	$admin_name = $connect->real_escape_string(filter($_POST['admin_name']));
 	$kd_lokasi = $connect->real_escape_string(filter($_POST['kd_lokasi']));
 	$admin_email = $connect->real_escape_string(trim(filter($_POST['admin_email'])));
+	$domain_kantor = $connect->real_escape_string(trim(filter($_POST['domain_kantor'])));
 	$admin_password1 = $connect->real_escape_string(trim(filter($_POST['admin_password1'])));
 	$admin_password2 = $connect->real_escape_string(trim(filter($_POST['admin_password2'])));
 
@@ -20,7 +21,7 @@ if (isset($_POST['add_data'])) {
 	$check_email = $connect->query("SELECT * FROM admin WHERE 	email = '$admin_email'");
 
 	//Cek apakah from nik, nama lengkap, alamat, asal kantor, nomor handphone, username, email, password1, dan password 2 sudah terisi semua
-	if (!$admin_username || !$admin_name || !$kd_lokasi || !$admin_email || !$admin_password1 || !$admin_password2) {
+	if (!$admin_username || !$admin_name || !$kd_lokasi || !$admin_email || !$admin_password1 || !$admin_password2 || !$domain_kantor) {
 		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Harap mengisi semua form.');
 	}
 
@@ -54,10 +55,10 @@ if (isset($_POST['add_data'])) {
 		//Hash password1 menggunakan password hash bawaan php
 		$password_hash = password_hash($admin_password1, PASSWORD_DEFAULT);
 
-		if ($connect->query("INSERT INTO admin (username, password, nama, email, kd_lokasi) VALUES ('$admin_username','$password_hash', '$admin_name', '$admin_email','$kd_lokasi')") == true) {
+		if ($connect->query("INSERT INTO admin (username, password, nama, email, kd_lokasi, domain_kantor) VALUES ('$admin_username','$password_hash', '$admin_name', '$admin_email','$kd_lokasi', '$domain_kantor')") == true) {
 			$_SESSION['notification'] = array('alert' => 'success', 'title' => 'Sukses', 'message' => 'Data berhasil ditambahkan.');
 		}else{
-			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!');
+			$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Fatal error!' . mysqli_error($connect));
 		}
 	}
 }
@@ -193,6 +194,14 @@ if (isset($_POST['edit_password'])) {
 													</select>
 												</div>
 												<div class="input-group mb-3">
+													<input type="text" name="domain_kantor" class="form-control" placeholder="Domain Kantor">
+													<div class="input-group-append">
+														<div class="input-group-text">
+															<span class="fas fa-home"></span>
+														</div>
+													</div>
+												</div>
+												<div class="input-group mb-3">
 													<input type="email" name="admin_email" class="form-control" placeholder="Email">
 													<div class="input-group-append">
 														<div class="input-group-text">
@@ -294,7 +303,7 @@ if (isset($_POST['edit_password'])) {
 																					<option value="3"<?php if ($data_admins['kd_lokasi'] == 3) {
 																						?>selected="true"
 																						<?php } ?>>Surabaya</option>
-																						<option value="4"<?php if ($data_admins['kd_lokasi'] == 3) {
+																						<option value="4"<?php if ($data_admins['kd_lokasi'] == 4) {
 																							?>selected="true"
 																							<?php } ?>>Bali</option>
 																						</select>
