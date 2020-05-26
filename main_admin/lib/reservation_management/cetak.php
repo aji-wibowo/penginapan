@@ -14,9 +14,23 @@ function BasicTable($data, $pdf, $field)
 	$pdf->SetFont('Arial','',12);
 	foreach ($field as $value) {
 		if($value == 'AsalKantor'){
-			$pdf->Cell(80,7,'Asal Kantor',1);
+			$pdf->Cell(80,7,'Asal Kantor',1, 0, 'C');
+		}elseif($value == 'KodePesan'){
+			$pdf->Cell(38,7,'Kode Pesan',1, 0, 'C');
+		}elseif($value == 'NamaTamu'){
+			$pdf->Cell(38,7,'Nama Tamu',1, 0, 'C');
+		}elseif($value == 'TanggalBayar'){
+			$pdf->Cell(38,7,'Tanggal Bayar',1, 0, 'C');
+		}elseif($value == 'TotalBayar'){
+			$pdf->Cell(38,7,'Total Bayar',1, 0, 'C');
+		}elseif($value == 'statusBayar'){
+			$pdf->Cell(38,7,'Status Bayar',1, 0, 'C');
+		}elseif($value == 'checkin'){
+			$pdf->Cell(38,7,'Check In',1, 0, 'C');
+		}elseif($value == 'checkout'){
+			$pdf->Cell(38,7,'Check Out',1, 0, 'C');
 		}else{
-			$pdf->Cell(38,7,$value,1);
+			$pdf->Cell(38,7,$value,1, 0, 'C');
 		}
 	}
 

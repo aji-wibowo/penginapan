@@ -27,7 +27,7 @@ if (isset($_POST['add_data'])) {
 
 	//Jika data username sudah ada didalam database, jika iya maka proses daftar gagal
 	else if ($check_userame->num_rows > 0) {
-		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Username <strong>('.$guest_username.')</strong> Sudah terdaftar.'); 
+		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Username <strong>('.$admin_username.')</strong> Sudah terdaftar.'); 
 	}
 
 	//Jika data email sudah ada didalam database, jika iya maka proses daftar gagal
