@@ -19,7 +19,7 @@ if (isset($_SESSION['admin'])) {
 		$password = $connect->real_escape_string(trim(filter($_POST['password'])));
 
 		//Cek apakah email ada?
-		$check_admin = $connect->query("SELECT * FROM admin JOIN lokasi ON admin.kd_lokasi=lokasi.kd_lokasi WHERE email = '$email'");
+		$check_admin = $connect->query("SELECT * FROM admin JOIN lokasi ON admin.kd_lokasi=lokasi.kd_lokasi WHERE email = '$email' OR username = '$email'");
 		$check_admin_rows = mysqli_num_rows($check_admin);
 		$data_admin = mysqli_fetch_assoc($check_admin);
 
@@ -67,7 +67,7 @@ if (isset($_SESSION['admin'])) {
 		<div class="card-body login-card-body">
 			<form method="POST">
 				<div class="input-group mb-3">
-					<input type="email" name="email" class="form-control" placeholder="Email">
+					<input type="text" name="email" class="form-control" placeholder="Email">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fa fa-envelope"></span>
