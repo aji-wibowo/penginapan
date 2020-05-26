@@ -32,7 +32,7 @@ if (isset($_POST['add_data'])) {
 
 	//Jika data email sudah ada didalam database, jika iya maka proses daftar gagal
 	else if ($check_email->num_rows > 0) {
-		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Email <strong>('.$guest_email.')</strong> Sudah terdaftar.'); 
+		$_SESSION['notification'] = array('alert' => 'danger', 'title' => 'Gagal', 'message' => 'Email <strong>('.$admin_email.')</strong> Sudah terdaftar.'); 
 	}
 
 	//Jika jumlah karakter username kurang dari 4 maka proses daftar gagal
